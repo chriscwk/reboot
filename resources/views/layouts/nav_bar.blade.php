@@ -11,9 +11,9 @@
 		</div>
 		<div class="nav-wrapper">
 			<ul>
-				<li><a href="javascript:;">Home</a></li>
-				<li><a href="javascript:;">Categories</a></li>
-				<li><a href="javascript:;">About Us</a></li>
+				<li><a id="home" href="javascript:;">Home</a></li>
+				<li><a id="categories" href="javascript:;">Categories</a></li>
+				<li><a id="aboutUs" href="javascript:;">About Us</a></li>
 				<li><a href="javascript:;">Sign Up</a></li>
 				<li><a href="javascript:;">Log In</a></li>
 			</ul>

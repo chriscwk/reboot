@@ -14,24 +14,31 @@ body {
 	font-weight: 400;
 }
 
-.bg-image {
+.bg-first, .bg-second, .bg-third {
 	width: 100vw;
 	height: 100vh;
 
-	/*background: url('/img/bg1.jpg');
-	background-repeat: no-repeat;
-	background-size: cover;*/
-
-	background-image: linear-gradient(140deg, #292b2d, #399ebb);
-
 	position: absolute;
-	top: 0;
 	left: 0;
 	z-index: -1;
-
-	/*filter: blur(2px);
-  	-webkit-filter: blur(2px);*/
 }
+
+.bg-first {
+	top: 0;
+	background-image: linear-gradient(to bottom, #399ebb, #2a4863);
+	
+}
+
+ .bg-second {
+ 	top: 100vh;
+ 	background-image: linear-gradient(to bottom, #2a4863, #3f7eac);
+ }
+
+ .bg-third {
+ 	top: 200vh;
+ 	background-image: linear-gradient(to bottom, #3f7eac, #399ebb);
+ 	
+ }
 
 .main-content {
 	height: 90.8vh;
@@ -77,7 +84,25 @@ body {
 }
 
 .top-content, .categories-content, .all-content {
-	position: absolute;
+	/*position: absolute;*/
 	width: 90vw;
 	height: 85vh;
+}
+
+.top-content {
+	background: rgba(0,0,0,0.2);
+}
+
+.categories-content {
+	background: rgba(0,0,0,0.4);
+	margin-top: 15vh;
+}
+
+.all-content {
+	background: rgba(0,0,0,0.6);
+	margin-top: 15vh;
+}
+
+::-webkit-scrollbar {
+	display: none;
 }
