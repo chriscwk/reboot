@@ -12,12 +12,30 @@ html, body {
 body {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 400;
-	background: url('/img/bg1.jpg');
-	background-size: cover;
+}
+
+.bg-image {
+	width: 100vw;
+	height: 100vh;
+
+	/*background: url('/img/bg1.jpg');
+	background-repeat: no-repeat;
+	background-size: cover;*/
+
+	background-image: linear-gradient(140deg, #292b2d, #399ebb);
+
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+
+	/*filter: blur(2px);
+  	-webkit-filter: blur(2px);*/
 }
 
 .main-content {
-	margin: 0 5vw;
+	height: 90.8vh;
+	padding: 0 5vw;
 }
 
 .page-footer {
@@ -31,7 +49,8 @@ body {
 }
 
 .sd-container {
-	width: 100px;
+	width: 70px;
+	color: #f2f2f2;
 	margin-left: auto;
 	text-align: center;
 }
@@ -55,4 +74,10 @@ body {
     25% { transform: translateY(-5px); }
     50% { transform: translateY(0); }
     100% { transform: translateY(0); }
+}
+
+.top-content, .categories-content, .all-content {
+	position: absolute;
+	width: 90vw;
+	height: 85vh;
 }

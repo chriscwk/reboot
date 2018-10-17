@@ -4,8 +4,20 @@
 
 @section('content')
 
+	<div class="bg-image">
+
+	</div>
+
 	<div class="main-content">
-		<p>Testing</p>
+		<div class="top-content">
+
+		</div>
+		<div class="categories-content">
+
+		</div>
+		<div class="all-content">
+			
+		</div>
 	</div>
 
 	<div class="page-footer">
