@@ -12,8 +12,47 @@ html, body {
 body {
 	font-family: 'Poppins', sans-serif;
 	font-weight: 400;
+	background: url('/img/bg1.jpg');
+	background-size: cover;
 }
 
 .main-content {
 	margin: 0 5vw;
+}
+
+.page-footer {
+	width: 100vw;
+	height: 75px;
+
+	position: absolute;
+	bottom: 0;
+
+	padding: 15px;
+}
+
+.sd-container {
+	width: 100px;
+	margin-left: auto;
+	text-align: center;
+}
+
+.sd-container div {
+	font-size: 12px;
+}
+
+.sd-container i {
+    -webkit-animation: action 1s infinite  alternate;
+    animation: action 1s infinite  alternate;
+}
+@-webkit-keyframes action {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-5px); }
+    50% { transform: translateY(0); }
+    100% { transform: translateY(0); }
+}
+@keyframes action {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-5px); }
+    50% { transform: translateY(0); }
+    100% { transform: translateY(0); }
 }
