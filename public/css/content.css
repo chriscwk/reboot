@@ -1,0 +1,43 @@
+.bg-first, .bg-second, .bg-third {
+	width: 100vw;
+	height: 100vh;
+
+	position: absolute;
+	left: 0;
+	z-index: -1;
+}
+
+.bg-first {
+	top: 0;
+	background-image: linear-gradient(to bottom, #399ebb, #2a4863);
+}
+
+ .bg-second {
+ 	top: 100vh;
+ 	background-image: linear-gradient(to bottom, #2a4863, #3f7eac);
+ }
+
+ .bg-third {
+ 	top: 200vh;
+ 	background-image: linear-gradient(to bottom, #3f7eac, #399ebb);
+}
+
+.top-content, .categories-content, .all-content {
+	width: 90vw;
+	height: 85vh;
+	margin: auto;
+}
+
+.top-content {
+	/*background: rgba(0,0,0,0.2);*/
+}
+
+.categories-content {
+	/*background: rgba(0,0,0,0.4);*/
+	margin-top: 15vh;
+}
+
+.all-content {
+	/*background: rgba(0,0,0,0.6);*/
+	margin-top: 15vh;
+}

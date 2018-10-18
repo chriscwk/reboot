@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('user.index');
-});
+Route::get('/', 'NormalController@index');
+Route::post('/login', 'LoginController@login');

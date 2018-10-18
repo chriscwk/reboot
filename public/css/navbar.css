@@ -67,19 +67,24 @@ nav ul li a {
 	padding: 8px 10px;
 }
 
+nav ul li a:hover {
+	color: #FFF;
+	text-decoration: none;
+}
+
 nav ul li:last-child a {
 	padding: 6px 8px;
 	/*border: 2px solid #ccc;*/
 }
 
 @media screen and (max-width: 864px) {
-	nav {
+	/*nav {
 		height: 65px;
-	}
+	}*/
 
 	.logo {
 		padding: 0;
-		margin-top: 12px;
+		margin-top: 14px;
 	}
 
 	.nav-wrapper {
@@ -155,7 +160,7 @@ nav ul li:last-child a {
 	.nav-btn {
 		position: fixed;
 		right: 10px;
-		top: 10px;
+		top: 5px;
 		display: block;
 		width: 48px;
 		height: 48px;

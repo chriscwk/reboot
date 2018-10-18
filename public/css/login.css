@@ -1,0 +1,60 @@
+.login-overlay {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: -50;
+
+	/* Position overlay in the center of screen */
+	transform: translate(-50%, -50%);
+
+	width: 0;
+	height: 36.5vh;
+	background: #FFF;
+	border-radius: 20px;
+
+	visibility: hidden;
+
+	transition: width 0.5s ease, visibility 0.5s ease 0.5s, z-index 0.5s ease 0.5s;
+}
+
+.login-overlay.show {
+	z-index: 1;
+	width: 30vw;
+	visibility: visible;
+
+	transition: width 0.5s ease;
+}
+
+.login-container {
+	display: none;
+}
+
+.login-header {
+	padding: 20px;
+	font-size: 24px;
+}
+
+.login-header:after {
+	content: '';
+    height: 1px;
+    display: block;
+    width: 90px;
+    background: #CCC;
+    margin-left: -6px;
+
+    animation: drawLine 1.5s;
+	animation-fill-mode: both;
+}
+
+.login-body {
+	padding: 20px;
+}
+
+@keyframes drawLine {
+    from {
+        width: 0;
+    }
+    to {
+        width: 90px;
+    }
+}
