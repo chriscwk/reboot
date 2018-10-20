@@ -14,6 +14,10 @@ body {
 	font-weight: 400;
 }
 
+.main-container {
+
+}
+
 .page-footer {
 	width: 100vw;
 	height: 7.5vh;
@@ -23,53 +27,6 @@ body {
 
 	padding: 15px;
 	text-align: center;
-}
-
-.su-container, .sd-container {
-	width: 70px;
-	color: #f2f2f2;
-	margin: auto;
-	display: inline-block;
-}
-
-.su-container div, .sd-container div {
-	font-size: 12px;
-}
-
-.su-container i {
-    -webkit-animation: actionUp 1s infinite  alternate;
-    animation: actionUp 1s infinite  alternate;
-}
-
-@-webkit-keyframes  {
-    0% { transform: translateY(0); }
-    25% { transform: translateY(-3px); }
-    50% { transform: translateY(0); }
-    100% { transform: translateY(0); }
-}
-@keyframes actionUp {
-    0% { transform: translateY(0); }
-    25% { transform: translateY(-3px); }
-    50% { transform: translateY(0); }
-    100% { transform: translateY(0); }
-}
-
-.sd-container i {
-    -webkit-animation: actionDown 1s infinite  alternate;
-    animation: actionDown 1s infinite  alternate;
-}
-
-@-webkit-keyframes actionDown {
-    0% { transform: translateY(0); }
-    25% { transform: translateY(3px); }
-    50% { transform: translateY(0); }
-    100% { transform: translateY(0); }
-}
-@keyframes actionDown {
-    0% { transform: translateY(0); }
-    25% { transform: translateY(3px); }
-    50% { transform: translateY(0); }
-    100% { transform: translateY(0); }
 }
 
 .hidden {

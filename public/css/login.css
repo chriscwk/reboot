@@ -3,6 +3,7 @@
 	top: 50%;
 	left: 50%;
 	z-index: -50;
+	border: 1px solid #ccc;
 
 	/* Position overlay in the center of screen */
 	transform: translate(-50%, -50%);
@@ -14,7 +15,7 @@
 
 	visibility: hidden;
 
-	transition: width 0.5s ease, visibility 0.5s ease 0.5s, z-index 0.5s ease 0.5s;
+	transition: width 0.5s ease, visibility 0.5s ease, z-index 0.5s ease;
 }
 
 .login-overlay.show {
@@ -22,7 +23,11 @@
 	width: 30vw;
 	visibility: visible;
 
-	transition: width 0.5s ease;
+	-webkit-box-shadow: 0px 5px 5px 0px rgba(179,179,179,1);
+	-moz-box-shadow: 0px 5px 5px 0px rgba(179,179,179,1);
+	box-shadow: 0px 5px 5px 0px rgba(179,179,179,1);
+
+	transition: width 0.5s ease, box-shadow 1s ease 0.5s;
 }
 
 .login-container {
@@ -31,7 +36,7 @@
 
 .login-header {
 	padding: 20px;
-	font-size: 24px;
+	font-size: 20px;
 }
 
 .login-header:after {
@@ -55,6 +60,6 @@
         width: 0;
     }
     to {
-        width: 90px;
+        width: 80px;
     }
 }

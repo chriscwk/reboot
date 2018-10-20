@@ -10,8 +10,16 @@
 }*/
 
 nav {
-	height: 7.5vh;
+	height: 6.5vh;
+	padding: 0 15vw;
 	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1px solid #ccc;
+}
+
+.nav-btn {
+	display: none;
 }
 
 .fixed-nav {
@@ -21,15 +29,39 @@ nav {
 }
 
 .logo {
-	float: left;
-	padding: 8px;
-	margin-left: 16px;
-	margin-top: 12px;
+	/*text-align: center;*/
+	padding: 15px 0;
+}
+
+.logo:after {
+	content: '';
+    height: 2px;
+    display: block;
+    background: #CCC;
+    margin: auto;
+
+    animation: animateLine 3s;
+	animation-fill-mode: both;
+}
+
+.nav-wrapper {
+	padding: 15px 0;
+	text-align: center;
+	line-height: 1rem;
+}
+
+@keyframes animateLine {
+    from {
+        width: 0;
+    }
+    to {
+        width: 73px;
+    }
 }
 
 .logo a {
-	/*color: #000;*/
-	color: #f2f2f2;
+	color: #000;
+	/*color: #f2f2f2;*/
 	text-transform: uppercase;
 	font-weight: 700;
 	font-size: 18px;
@@ -38,27 +70,34 @@ nav {
 }
 
 nav ul {
-	float: right;
+	/*float: right;*/
+	padding: 0;
+	margin: 0;
 }
 
 nav ul li {
 	display: inline-block;
-	float: left;
+	/*float: left;*/
 }
 
-nav ul li:not(:first-child) {
-	margin-left: 48px;
+nav ul li:not(:last-child) {
+	margin-right: 20px;
+}
+
+nav-ul li:last-child {
+	margin-left: 0 !important;
 }
 
 nav ul li:last-child {
-	margin-right: 24px;
+	padding-left: 20px;
+	border-left: 2px solid #ccc;
 }
 
 nav ul li a {
 	display: inline-block;
 	outline: none;
-	/*color: #000;*/
-	color: #f2f2f2;
+	color: #000;
+	/*color: #f2f2f2;*/
 	text-transform: uppercase;
 	text-decoration: none;
 	letter-spacing: 1.2px;
@@ -68,23 +107,22 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-	color: #FFF;
+	color: #000;
 	text-decoration: none;
 }
 
-nav ul li:last-child a {
-	padding: 6px 8px;
-	/*border: 2px solid #ccc;*/
-}
-
 @media screen and (max-width: 864px) {
-	/*nav {
-		height: 65px;
-	}*/
+	nav {
+		padding: 0 30px;
+	}
+
+	.nav-btn {
+		display: inline-block;
+	}
 
 	.logo {
 		padding: 0;
-		margin-top: 14px;
+		margin-top: 10px;
 	}
 
 	.nav-wrapper {
@@ -159,11 +197,11 @@ nav ul li:last-child a {
 
 	.nav-btn {
 		position: fixed;
-		right: 10px;
-		top: 5px;
+		right: 30px;
+		top: 15px;
 		display: block;
-		width: 48px;
-		height: 48px;
+		width: 20px;
+		height: 24px;
 		cursor: pointer;
 		z-index: 9999;
 		border-radius: 50%;
@@ -175,20 +213,15 @@ nav ul li:last-child a {
 		height: 2px;
 		background: #000;
 		border-radius: 2px;
-		margin-left: 14px;
+		/*margin-left: 14px;*/
 	}
 
-	.nav-btn i:nth-child(1) {
-		margin-top: 16px;
+	.nav-btn i:nth-child(1), .nav-btn i:nth-child(2), .nav-btn i:nth-child(3) {
+		margin-top: 4px;
 	}
 
 	.nav-btn i:nth-child(2) {
-		margin-top: 4px;
 		opacity: 1;
-	}
-
-	.nav-btn i:nth-child(3) {
-		margin-top: 4px;
 	}
 }
 
