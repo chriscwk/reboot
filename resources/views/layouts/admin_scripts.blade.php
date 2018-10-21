@@ -1,0 +1,4 @@
+<script src="/admin/vendors/js/vendor.bundle.base.js"></script>
+<script src="/admin/vendors/js/vendor.bundle.addons.js"></script>
+<script src="/admin/js/off-canvas.js"></script>
+<script src="/admin/js/misc.js"></script>

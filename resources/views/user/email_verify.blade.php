@@ -11,4 +11,5 @@
 @endsection
 
 @section('scripts')
+	{{-- scripts --}}
 @endsection

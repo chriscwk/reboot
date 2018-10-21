@@ -12,4 +12,9 @@
 */
 
 Route::get('/', 'NormalController@index');
-Route::post('/login', 'LoginController@login');
+
+Route::post('/signin', 'NormalController@sign_in');
+Route::post('/signup', 'NormalController@sign_up');
+Route::get('/signout', 'NormalController@sign_out');
+
+Route::get('/administrator', 'AdminController@index');

@@ -88,9 +88,9 @@ nav-ul li:last-child {
 	margin-left: 0 !important;
 }
 
-nav ul li:last-child {
-	padding-left: 20px;
-	border-left: 2px solid #ccc;
+nav ul li:nth-child(2) {
+	padding-right: 20px;
+	border-right: 2px solid #ccc;
 }
 
 nav ul li a {
@@ -109,6 +109,12 @@ nav ul li a {
 nav ul li a:hover {
 	color: #000;
 	text-decoration: none;
+}
+
+.user-img {
+	width: 20px;
+	margin-right: 5px;
+	margin-top: -3px;
 }
 
 @media screen and (max-width: 864px) {

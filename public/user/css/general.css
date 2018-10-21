@@ -33,6 +33,21 @@ body {
 	display: none;
 }
 
+.close-overlay {
+	width: 100vw;
+	height: 100vh;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 1;
+
+	display: none;
+}
+
+.form-control {
+	font-size: 12px;
+}
+
 .pull-right {
 	float: right;
 }

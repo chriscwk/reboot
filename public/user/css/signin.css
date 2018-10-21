@@ -1,4 +1,4 @@
-.login-overlay {
+.signin-overlay {
 	position: fixed;
 	top: 50%;
 	left: 50%;
@@ -18,8 +18,8 @@
 	transition: width 0.5s ease, visibility 0.5s ease, z-index 0.5s ease;
 }
 
-.login-overlay.show {
-	z-index: 1;
+.signin-overlay.show {
+	z-index: 2;
 	width: 30vw;
 	visibility: visible;
 
@@ -27,19 +27,20 @@
 	-moz-box-shadow: 0px 5px 5px 0px rgba(179,179,179,1);
 	box-shadow: 0px 5px 5px 0px rgba(179,179,179,1);
 
-	transition: width 0.5s ease, box-shadow 1s ease 0.5s;
+	transition: z-index 0.5s ease, width 0.5s ease, box-shadow 1s ease 0.5s;
 }
 
-.login-container {
+.signin-container {
 	display: none;
+	height: 100%;
 }
 
-.login-header {
+.signin-header {
 	padding: 20px;
 	font-size: 20px;
 }
 
-.login-header:after {
+.signin-header:after {
 	content: '';
     height: 1px;
     display: block;
@@ -51,8 +52,9 @@
 	animation-fill-mode: both;
 }
 
-.login-body {
+.signin-body {
 	padding: 20px;
+	height: 100%;
 }
 
 @keyframes drawLine {

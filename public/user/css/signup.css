@@ -1,0 +1,67 @@
+.signup-overlay {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: -50;
+	border: 1px solid #ccc;
+
+	/* Position overlay in the center of screen */
+	transform: translate(-50%, -50%);
+
+	width: 0;
+	height: 60vh;
+	background: #FFF;
+	border-radius: 20px;
+
+	visibility: hidden;
+
+	transition: width 0.5s ease, visibility 0.5s ease, z-index 0.5s ease;
+}
+
+.signup-overlay.show {
+	z-index: 2;
+	width: 30vw;
+	visibility: visible;
+
+	-webkit-box-shadow: 0px 5px 5px 0px rgba(179,179,179,1);
+	-moz-box-shadow: 0px 5px 5px 0px rgba(179,179,179,1);
+	box-shadow: 0px 5px 5px 0px rgba(179,179,179,1);
+
+	transition: z-index 0.5s ease, width 0.5s ease, box-shadow 1s ease 0.5s;
+}
+
+.signup-container {
+	display: none;
+	height: 100%;
+}
+
+.signup-header {
+	padding: 20px;
+	font-size: 20px;
+}
+
+.signup-header:after {
+	content: '';
+    height: 1px;
+    display: block;
+    width: 90px;
+    background: #CCC;
+    margin-left: -6px;
+
+    animation: drawLine 1.5s;
+	animation-fill-mode: both;
+}
+
+.signup-body {
+	padding: 20px;
+	height: 100%;
+}
+
+@keyframes drawLine {
+    from {
+        width: 0;
+    }
+    to {
+        width: 90px;
+    }
+}

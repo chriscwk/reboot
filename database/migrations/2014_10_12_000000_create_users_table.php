@@ -21,7 +21,9 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('phone_number');
-            $table->string('facebook_id');
+            $table->string('birth_date');
+            $table->string('facebook_id')->nullable();
+            $table->string('remember_token')->nullable();
             $table->timestamps();
         });
     }
