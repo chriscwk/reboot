@@ -6,7 +6,7 @@
 	<meta name="description" content="Reboot">
 	<meta name="author" content="Reboot Admin">
 
-	<title>@yield('title') - Reboot</title>
+	<title>@yield('title') | Reboot</title>
 
 	@include('layouts.base_links')
 </head>

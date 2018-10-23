@@ -22,6 +22,8 @@ class CreateUsersTable extends Migration
             $table->string('last_name');
             $table->string('phone_number');
             $table->string('birth_date');
+            $table->integer('publisher')->default(0);
+            $table->integer('status')->default(0);
             $table->string('facebook_id')->nullable();
             $table->string('remember_token')->nullable();
             $table->timestamps();

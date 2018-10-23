@@ -20,11 +20,11 @@ class NormalController extends Controller
     {
         $credentials = $rq->only('email', 'password');
         
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt(['email' => $credentials['email'], 'password' => $credentials['password'], 'status' => 1])) {
             // Authentication passed...
             return back()->with(['msg_success' => 'Successfully signed in!', 'msg_class' => 'success']);
         } else {
-            return back()->with(['msg_fail' => 'Failed to sign in! Invalid credentials.', 'msg_class' => 'error']);
+            return back()->with(['msg_fail' => 'Wrong email/password combination!<br>Please try again.', 'msg_class' => 'error']);
         }
     }
 
@@ -39,9 +39,11 @@ class NormalController extends Controller
             $user->last_name    = $rq->user_last;
             $user->phone_number = $rq->user_phone;
             $user->birth_date   = $rq->user_birth;
+            $user->status       = 1;
+            
             $user->save();
 
-            return back()->with(['msg_success' => 'Successfully signed up!<br>You may now sign in.', 'msg_class' => 'success']);
+            return back()->with(['msg_success' => 'Successfully signed up!', 'msg_class' => 'success']);
         } catch (Exception $e) {
             return back()->with(['msg_fail' => 'Failed to sign up!<br>Please try again.', 'msg_class' => 'error']);
         }

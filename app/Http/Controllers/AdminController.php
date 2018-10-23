@@ -10,4 +10,14 @@ class AdminController extends Controller
     {
     	return view('admin.index');
     }
+
+    public function sign_in_view()
+    {
+    	return view('admin.signin');
+    }
+
+    public function sign_in(Request $rq)
+    {
+        return view('admin.index');
+    }
 }

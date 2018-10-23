@@ -8,7 +8,7 @@
 	<meta name="description" content="Reboot Admin">
 	<meta name="author" content="Reboot Admin">
 
-	<title>@yield('title') - Reboot Admin</title>
+	<title>@yield('title') | Reboot Admin</title>
 
 	@include('layouts.admin_links')
 </head>

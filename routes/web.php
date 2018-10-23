@@ -17,4 +17,6 @@ Route::post('/signin', 'NormalController@sign_in');
 Route::post('/signup', 'NormalController@sign_up');
 Route::get('/signout', 'NormalController@sign_out');
 
-Route::get('/administrator', 'AdminController@index');
+Route::get('/administrator', 'AdminController@sign_in_view');
+Route::post('/administrator', 'AdminController@sign_in');
+Route::get('/administrator/dashboard', 'AdminController@index');

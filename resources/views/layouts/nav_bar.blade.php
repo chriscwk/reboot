@@ -18,6 +18,9 @@
 				<li>
 					<a href="javascript:;"><img class="user-img" src="http://icons-for-free.com/free-icons/png/512/1287507.png" />{{ Auth::user()->first_name }}</a>
 				</li>
+					@if(\Auth::user()->publisher == 1)
+					<li><a href="javascript:;">My Articles</a></li>
+					@endif
 				{{-- <li><a href="javascript:;">Profile</a></li> --}}
 				<li><a href="{{ action('NormalController@sign_out') }}">Sign Out</a></li>
 				@else
