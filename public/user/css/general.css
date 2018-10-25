@@ -15,7 +15,8 @@ body {
 }
 
 .main-container {
-
+	width: 100vw;
+	padding: 50px 15vw;
 }
 
 .page-footer {

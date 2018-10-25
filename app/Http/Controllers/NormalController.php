@@ -8,6 +8,7 @@ use Exception;
 
 // Eloquent Models Shortcuts
 use App\User;
+use App\PendingPublisher;
 
 class NormalController extends Controller
 {
@@ -32,7 +33,6 @@ class NormalController extends Controller
     {
         try {
             $user = new User;
-
             $user->email        = $rq->user_email;
             $user->password     = bcrypt($rq->user_pass);
             $user->first_name   = $rq->user_first;
@@ -40,8 +40,14 @@ class NormalController extends Controller
             $user->phone_number = $rq->user_phone;
             $user->birth_date   = $rq->user_birth;
             $user->status       = 1;
-            
             $user->save();
+
+            $pending = new PendingPublisher;
+            $pending->user_id = $user->id;
+            $pending->save();
+
+            // Log user in to the system automatically
+            Auth::login($user);
 
             return back()->with(['msg_success' => 'Successfully signed up!', 'msg_class' => 'success']);
         } catch (Exception $e) {
@@ -53,9 +59,19 @@ class NormalController extends Controller
     {
         try {
             Auth::logout();
-            return back()->with(['msg_success' => 'Successfully signed out!<br>See you again next time.', 'msg_class' => 'success']);
+            return redirect()->route('user-index')->with(['msg_success' => 'Successfully signed out!<br>See you again next time.', 'msg_class' => 'success']);
         } catch (Exception $e) {
             return back()->with(['msg_fail' => 'Failed to sign out!<br>Please try again.', 'msg_class' => 'error']);
         }
+    }
+
+    public function redirectToProvider()
+    {
+        // 
+    }
+
+    public function handleProviderCallback()
+    {
+        //
     }
 }

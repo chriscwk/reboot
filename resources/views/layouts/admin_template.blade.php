@@ -23,6 +23,14 @@
 
 		@include('layouts.admin_scripts')
 
+		<script>
+			$(function() {
+			    $('[data-toggle="offcanvas"]').on("click", function() {
+			      	$('.sidebar-offcanvas').toggleClass('active')
+			    });
+			  });
+		</script>
+
 		@yield('scripts')
 	</div>
 </body>

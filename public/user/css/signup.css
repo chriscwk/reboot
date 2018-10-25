@@ -54,7 +54,22 @@
 
 .signup-body {
 	padding: 20px;
-	height: 100%;
+	height: 86.5%;
+	overflow: auto;
+}
+
+#signup_form span {
+	font-size: 10px;
+}
+
+.btn-facebook {
+	color: #fff;
+	font-size: 14px;
+	background: #3B5998;
+}
+
+.btn-facebook:hover {
+	color: #fff;
 }
 
 @keyframes drawLine {

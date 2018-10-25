@@ -1,0 +1,36 @@
+-.section-header {
+	padding: 15px;
+}
+
+.section-header a {
+	margin-top: -10px;
+	margin-left: 10px;
+}
+
+.section-header h3, .section-header > a {
+	display: inline-block;
+}
+
+.article-card {
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.article-img {
+	height: 200px;
+	object-fit: cover;
+	border-top-left-radius: 0.3125rem;
+	border-top-right-radius: 0.3125rem;
+}
+
+.article-card .card-body {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.article-headline {
+	margin-top: 5px;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
