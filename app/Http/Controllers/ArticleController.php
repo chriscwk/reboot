@@ -165,4 +165,46 @@ class ArticleController extends Controller
             return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to remove article. Please try again.']);
         }
     }
+    
+    //TODO for link preview
+    //NOT USED FOR NOW
+    public function crawl_site(Request $rq)
+    {
+        if ($rq->site_url != "")
+        {
+            try
+            {
+                $website = file_get_contents($rq->site_url);
+                return $website;
+            }
+            catch (Exception $e) 
+            {
+                return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to crawl onto specified site. Please try again.']);
+            }
+        }
+        else 
+            return "";
+    }
+
+    public function getApprovedArticleByPage(Request $rq)
+    {
+        try
+        {
+            $rowsPerQuery = 10;
+            $current = $rq->current;
+    
+            $approvedArticles = Article::where('verified', 1)
+                                        ->where('published', 1)
+                                        ->orderBy('created_at', 'desc')
+                                        ->limit($rowsPerQuery)->offset($current)
+                                        ->get();
+    
+            return $approvedArticles->toArray();
+        }
+        catch (Exception $e) 
+        {
+            return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to crawl onto specified site. Please try again.']);
+        }
+    }
+
 }

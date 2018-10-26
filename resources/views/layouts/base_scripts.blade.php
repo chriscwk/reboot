@@ -26,4 +26,5 @@
 
 <!-- Custom Scripts -->
 <script src="/user/js/general.js"></script>
+<script src="/user/js/jquery.tmpl.js"></script>
 <script src="/user/js/jquery.mask.min.js"></script>

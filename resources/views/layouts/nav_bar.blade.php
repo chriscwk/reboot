@@ -7,11 +7,11 @@
 			<i></i>
 		</label>
 		<div class="logo">
-			<a href="javascript:;">REBOOT</a>
+			<a href="{{ action('NormalController@index') }}">REBOOT</a>
 		</div>
 		<div class="nav-wrapper">
 			<ul>
-				<li><a id="home" href="javascript:;">Home</a></li>
+				<li><a id="home" href="{{ action('NormalController@index') }}">Home</a></li>
 				<li><a id="categories" href="javascript:;">Categories</a></li>
 				{{-- <li><a id="aboutUs" href="javascript:;">About Us</a></li> --}}
 				@if(\Auth::check())

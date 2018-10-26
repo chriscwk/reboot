@@ -20,6 +20,9 @@ Route::get('/signout', 'NormalController@sign_out');
 
 Route::get('/articles', 'ArticleController@index')->name('articles');
 Route::get('/articles/create', 'ArticleController@create');
+
+Route::post('/articles/getApprovedArticleByPage', 'ArticleController@getApprovedArticleByPage');
+
 Route::post('/articles/store', 'ArticleController@store');
 Route::post('/articles/edit/view', 'ArticleController@edit');
 Route::post('/articles/edit/update', 'ArticleController@update');
