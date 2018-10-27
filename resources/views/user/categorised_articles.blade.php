@@ -37,10 +37,9 @@
 	$(document).ready(function () {
 		retrieve_article();
 
-		$('.card').on('click', function() {
-			$('#article_id').val($(this).attr('data-id'));
-			//$('#edit_article_form').submit();
-		});
+		$(document).on('click', '.card', function () {
+            window.location.href = $(this).attr('data-url');
+        });
 
 	});
 	

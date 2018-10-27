@@ -1,0 +1,239 @@
+.latest_article_news_area.article .single_latest_news_area {
+    margin-bottom: 50px;
+}
+
+.article-img {
+    border: 1px solid #f6f6f6;
+    padding: 5px;
+    width: auto;
+    height: 450px;
+}
+
+.article-img img {
+    width: 100%;
+    height: 100%;
+}
+
+.singl-article-top-bg-area p {
+    color: #3498db;
+    padding: 40px 0;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.singl-article-top-bg-area p a {
+    color: #3498db;
+}
+
+#article-carousel {
+    padding: 5px;
+    border: 1px solid #ededed;
+    margin: 100px 0;
+}
+
+.singl-article-title h3 {
+    color: #2c3e50;
+    font-weight: 700;
+    padding: 40px 0;
+}
+
+.singl-article-status-bar {
+    background: #f6f6f6 none repeat scroll 0 0;
+    border-left: 10px solid #ff9800;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.singl-article-status-bar span {
+    display: inline-block;
+    padding: 20px;
+    font-size: 14px;
+}
+
+.singl-article-status-bar span i {
+    color: #354b60;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.singl-article-status-bar span > a {
+    color: #354b60;
+}
+
+.singl-article-details p {
+    margin: 0;
+    padding-bottom: 25px;
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+.share-links {
+    padding: 15px 0;
+}
+
+.tag-share {
+    overflow: hidden;
+}
+
+.article-tag span {
+    color: #888;
+    font-size: 14px;
+    padding: 0 10px;
+}
+
+.article-tag button {
+    background: #3498db;
+    border: medium none transparent;
+    border-radius: 30px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    margin: 0 4px;
+    padding: 0 20px;
+}
+
+.article-tag {
+    padding: 9px 0;
+}
+
+.article-share button {
+    margin: 0 5px;
+}
+
+.article-share button.like {
+    background: transparent none repeat scroll 0 0;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    color: #888;
+    font-size: 10px;
+    padding: 10px 0;
+}
+
+.article-share button.like i {
+    color: #3498db;
+    font-size: 14px;
+    margin: 0 20px;
+}
+
+.article-share button.like span {
+    background: #888 none repeat scroll 0 0;
+    font-size: 10px;
+    margin: 0 20px;
+}
+
+.media-body p {
+    margin: 0;
+}
+
+.media-body a.reply {
+    color: #888;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    display: inline-block;
+    border: 1px solid #ddd;
+    border-radius: 50px;
+    padding: 0 18px;
+    float: right;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+}
+
+.media-body a.reply:hover {
+    background-color: #3498db;
+    color: #fff;
+    border: 1px solid #3498db;
+}
+
+.media-bottom {
+    margin-top: 17px;
+}
+
+.media-bottom p {
+    color: #888;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    margin: 0;
+    text-align: justify;
+}
+
+.border-left {
+    border-left: 1px solid #e5e5e5;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+
+.border-bottom-1 {
+    margin-top: 70px;
+    border-bottom: 1px solid #ececec;
+}
+
+.contact-form-title h4 {
+    color: #2c3e50;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    line-height: 18px;
+    margin-bottom: 35px;
+}
+
+.article_comment_form #message {
+    height: 238px;
+    border-radius: 0;
+    padding: 20px 0 0 12px;
+}
+
+.singl-article-post figure {
+    margin: 0;
+}
+
+.article-details {
+    text-align: left;
+}
+
+.singl-article-status-bar > span:nth-child(4) {
+    float: right;
+}
+
+.social-links {
+    display: inline-block;
+    padding-left: 14px;
+    margin: 0;
+}
+
+.social-links li {
+    display: inline-block;
+    list-style: none;
+}
+
+.social-links li > a {
+    display: block;
+}
+
+.social-links a:hover {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+}
+
+.social-links li > a > i {
+    background-color: #34495e;
+    border-radius: 50%;
+    box-shadow: 3px 3px 7px -5px rgba(0, 0, 0, 0.6);
+    color: #fff;
+    height: 30px;
+    line-height: 30px;
+    margin-right: 5px;
+    text-align: center;
+    width: 30px;
+    padding: 5px;
+}
+
+.share-promt {
+    color: #888;
+    font-size: 14px;
+    line-height: 16px;
+}

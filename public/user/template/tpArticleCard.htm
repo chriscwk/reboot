@@ -2,7 +2,7 @@
 {{each article}}
     <div class="row">
         <div class="col-xl-12">
-            <div data-id="${id}" class="card article-card">
+            <div data-id="${id}" data-url="/articles/${id}/${encoded_name}" class="card article-card">
                 <img class="article-img" src="/user/articles/${article_img}" />
                 <div class="card-body">
                     <div class="article-headline">

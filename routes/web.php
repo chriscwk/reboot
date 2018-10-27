@@ -22,6 +22,7 @@ Route::get('/categories', 'CategoryController@index')->name('category-index');
 Route::get('/categories/{categoryId}', 'CategoryController@getCategoryDetails');
 
 Route::get('/articles', 'ArticleController@index')->name('articles');
+Route::get('/articles/{articleId}/{articleName}', 'ArticleController@getArticleDetails');
 Route::get('/articles/create', 'ArticleController@create');
 Route::post('/articles/getApprovedArticleByPage', 'ArticleController@getApprovedArticleByPage');
 Route::post('/articles/store', 'ArticleController@store');

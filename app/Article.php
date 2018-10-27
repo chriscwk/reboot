@@ -10,4 +10,11 @@ class Article extends Model
     protected $casts = [
         'created_at' => 'date:d M Y H:i',
     ];
+
+    protected $appends = ['encoded_name'];
+
+    public function getEncodedNameAttribute()
+    {
+        return urlencode($this->article_title);
+    }
 }

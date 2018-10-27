@@ -206,11 +206,37 @@ class ArticleController extends Controller
 
             $approvedArticles = $query->get();
 
-            return $approvedArticles->toArray();
+            $approvedArticles = $approvedArticles->toArray();
+
+            return $approvedArticles;
         }
         catch (Exception $e) 
         {
             return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to retrieve articles.']);
+        }
+    }
+
+    public function getArticleDetails($articleId, $articleName)
+    {
+        try
+        {
+            $query = Article::query();
+            $query = $query->join('categories', 'categories.id', 'articles.category_id');
+            $query = $query->where('verified', 1);
+            $query = $query->where('published', 1);
+
+            if ($articleId != null && $articleId != "")
+                $query = $query->where('articles.id', $articleId);
+            if ($articleName != null && $articleName != "")
+                $query = $query->where('article_title', urldecode($articleName));
+
+            $articlePost = $query->firstOrFail();
+            
+            return view('user.article_post', compact('articlePost'));
+        }
+        catch (Exception $e) 
+        {
+            return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to retrieve article.']);
         }
     }
 

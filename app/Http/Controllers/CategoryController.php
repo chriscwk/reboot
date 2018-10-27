@@ -36,7 +36,7 @@ class CategoryController extends Controller
 
     public function getCategoryDetails($categoryId)
     {
-        $category = Category::find($categoryId);
+        $category = Category::findOrFail($categoryId);
         
         return view('user.categorised_articles', compact('category'));
     }
