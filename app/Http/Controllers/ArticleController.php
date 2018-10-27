@@ -190,20 +190,27 @@ class ArticleController extends Controller
     {
         try
         {
-            $rowsPerQuery = 10;
+            $rowsPerQuery = config("app.home_articles_per_page");
             $current = $rq->current;
+            $categoryId = $rq->categoryId;
     
-            $approvedArticles = Article::where('verified', 1)
-                                        ->where('published', 1)
-                                        ->orderBy('created_at', 'desc')
-                                        ->limit($rowsPerQuery)->offset($current)
-                                        ->get();
-    
+            $query = Article::query();
+            $query = $query->where('verified', 1);
+            $query = $query->where('published', 1);
+
+            if ($categoryId != null && $categoryId != "")
+                $query = $query->where('category_id', $categoryId);
+
+            $query = $query->orderBy('created_at', 'desc');
+            $query = $query->limit($rowsPerQuery)->offset($current);
+
+            $approvedArticles = $query->get();
+
             return $approvedArticles->toArray();
         }
         catch (Exception $e) 
         {
-            return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to crawl onto specified site. Please try again.']);
+            return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to retrieve articles.']);
         }
     }
 

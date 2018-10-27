@@ -224,4 +224,9 @@ return [
 
     ],
 
+    /*Custom app configs*/
+
+    //Home page items per load
+    'home_articles_per_page' => 10,
+    
 ];

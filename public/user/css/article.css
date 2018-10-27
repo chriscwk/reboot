@@ -33,6 +33,10 @@
     color: #4d4d4d;
 }
 
+.article-author {
+	float: right;
+}
+
 .article-card hr {
 	margin-top: 5px;
 	margin-bottom: 10px;
@@ -77,4 +81,8 @@
 
 .m-b-30 {
 	margin-bottom: 30px;
+}
+
+.category-badge {
+	float: right;
 }

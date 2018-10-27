@@ -1,6 +1,6 @@
 @extends('layouts.base_template')
 
-@section('title', 'Home')
+@section('title', $category->category_name.' Articles')
 
 @section('links')
 	<link rel="stylesheet" href="/user/css/article.css">
@@ -9,11 +9,11 @@
 @section('content')
 
 	<div class="main-container">
-		<section id="article-container">
-			<div class="section-header">
-				<h3>Home</h3>
+        <section id="article-container">
+            <div class="section-header">
+				<h3>{{$category->category_name}} Articles</h3>
 			</div>
-		</section>
+        </section>
 	</div>
 
 @endsection
@@ -49,7 +49,7 @@
 			headers: { 'X-CSRF-TOKEN' : "{{ csrf_token() }}" },
 			type: 'POST',
 			url: '/articles/getApprovedArticleByPage',
-			data: { 'current' : current },
+			data: { 'current' : current, 'categoryId' : {{ $category->id }} },
 			success: function(data) {
 				current = current + data.length;
 				data = '{article:' + JSON.stringify(data) + '}';
