@@ -3,7 +3,7 @@
 @section('title', 'Categories')
 
 @section('links')
-	<link rel="stylesheet" href="/user/css/article.css">
+	<link rel="stylesheet" href="/user/css/category.css">
 @endsection
 
 @section('content')
@@ -17,15 +17,15 @@
             <div class="row">
 				@foreach($categorisedArticles AS $category)
 				<div class="col-xl-4">
-					<div data-id="{{ $category->id }}" class="card article-card">
+					<div data-id="{{ $category->id }}" class="card category-card">
 						<img class="category-img" src="/admin/categories/{{ $category->category_img }}" />
 						<div class="card-body">
-							<div class="article-headline">
+							<div class="category-title">
 								{{ $category->category_name }}
 								<span class="badge badge-publish category-badge">{{ $category->articles_count }}</span>
 							</div>
 							<hr>
-							<div class="article-timestamp">
+							<div class="category-desc">
 								{{ $category->category_desc }}
 							</div>
 						</div>
