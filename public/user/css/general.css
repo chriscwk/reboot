@@ -67,3 +67,7 @@ body {
 		display: none;
 	}
 }
+
+.custom-spinner-text {
+	margin: 30px;
+}

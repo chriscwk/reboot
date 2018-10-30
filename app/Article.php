@@ -15,6 +15,6 @@ class Article extends Model
 
     public function getEncodedNameAttribute()
     {
-        return urlencode($this->article_title);
+        return str_replace('+', '-', urlencode($this->article_title));
     }
 }

@@ -228,7 +228,7 @@ class ArticleController extends Controller
             if ($articleId != null && $articleId != "")
                 $query = $query->where('articles.id', $articleId);
             if ($articleName != null && $articleName != "")
-                $query = $query->where('article_title', urldecode($articleName));
+                $query = $query->where('article_title', urldecode(str_replace('-', '+', $articleName)));
 
             $articlePost = $query->firstOrFail();
             

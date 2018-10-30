@@ -14,6 +14,11 @@
 				<h3>Home</h3>
 			</div>
 		</section>
+
+		<div class="text-center custom-spinner">
+			<i class="fa fa-spin fa-spinner fa-10x"></i>
+			<div class="custom-spinner-text">loading...</div>
+		</div>
 	</div>
 
 @endsection
@@ -62,6 +67,7 @@
 			}
 		}).done(function() {
 			scrolled = false; //reset debounce
+			$(".custom-spinner").hide();
 		});
 	}
 
