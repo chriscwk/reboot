@@ -20,6 +20,7 @@
 				</li>
 					@if(\Auth::user()->publisher == 1)
 					<li><a href="{{ action('ArticleController@index') }}">My Articles</a></li>
+					<li><a href="{{ action('EventController@index') }}">Organize Meetups</a></li>
 					@endif
 				{{-- <li><a href="javascript:;">Profile</a></li> --}}
 				<li><a href="{{ action('NormalController@sign_out') }}">Sign Out</a></li>
