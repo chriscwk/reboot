@@ -59,13 +59,23 @@
 		<div class="row">
 			<div class="col-xl-6 offset-xl-3">
 				<label>Article Link</label>
-				<input id="articleLink" type="text" class="form-control" placeholder="Enter Link" name="article_link">
+				<div class="input-group mb-3">
+					<input id="articleLink" type="text" class="form-control" placeholder="Enter Link" name="article_link">
+					<div class="input-group-append">
+						<button type="button" class="btn btn-success fetch-link-preview"><i class="fa fa-check"></i></button>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-xl-12">
 				<label>Link Preview</label>
-				<div id="content-previewer"></div>
+				<div id="content-previewer">
+					<div class="text-center custom-spinner" style="display: none;">
+						<i class="fa fa-spin fa-spinner fa-10x"></i>
+						<div class="custom-spinner-text">loading...</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<h6 class="text-center m-t-40">OR</h6>
@@ -98,22 +108,25 @@
 
 <script>
 	$(function() {
-		$('#articleLink').on('input', function () {
+		$('.fetch-link-preview').on('click', function (e) {
 			var site_url = $('#articleLink').val();
+			$(".custom-spinner").show();
+			$("#content-previewer > img").remove();
 
-			// $.ajax({
-			// 	headers: { 'X-CSRF-TOKEN' : "{{ csrf_token() }}" },
-			// 	type: 'POST',
-			// 	url: '/articles/crawl_site',
-			// 	data: { 'site_url' : site_url},
-			// 	success: function(data) {
-			// 		$("#content-previewer").html(data);
-			// 	},
-			// 	error: function(data) {
-			// 		$.ajax(this);
-            //     	return;
-			// 	}
-			// });
+			$.ajax({
+				headers: { 'X-CSRF-TOKEN' : "{{ csrf_token() }}" },
+				type: 'POST',
+				url: '/articles/crawl_site',
+				data: { 'site_url' : site_url },
+				success: function(data) {
+					$(".custom-spinner").hide();
+					$("#content-previewer").append(data);
+				},
+				error: function(data) {
+					$.ajax(this);
+                	return;
+				}
+			});
 		});
 
 		$('#articleHtml').froalaEditor({

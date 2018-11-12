@@ -4,6 +4,11 @@
 
 @section('links')
 	<link rel="stylesheet" href="/user/css/single_article.css">
+    <style>
+		#content-previewer{
+			border: 2px solid black;
+		}
+	</style>
 @endsection
 
 @section('content')
@@ -35,7 +40,14 @@
                                 </span>
                             </div>
                             <div class="singl-article-details">
+
+                                @if($articlePost->article_link != "")
+                                <div id="content-previewer">{!! $link_preview !!}</div>
+                                <div class="read-more text-center">Read more <a href="{{ $articlePost->article_link }}">here</a></div>
+                                @else
                                 {!! $articlePost->article_text !!}
+                                @endif
+
                             </div>
                         </figure>
                     </div>

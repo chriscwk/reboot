@@ -166,16 +166,37 @@ class ArticleController extends Controller
         }
     }
     
-    //TODO for link preview
-    //NOT USED FOR NOW
+    public function addhttp($url) 
+    {
+        if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+            $url = "http://" . $url;
+        }
+        return $url;
+    }
+
+    public function getLinkPreview($url)
+    {
+        $url = $this->addhttp($url);
+        return "<img style='width: 100%' src='"."https://image.thum.io/get/width/1920/crop/1080/".$url."'></img>";
+    }
+
     public function crawl_site(Request $rq)
     {
         if ($rq->site_url != "")
         {
             try
             {
-                $website = file_get_contents($rq->site_url);
-                return $website;
+                //$url = $this->addhttp($rq->site_url);
+
+                // $screen_shot_json_data = file_get_contents("https://www.googleapis.com/pagespeedonline/v2/runPagespeed?url=".$url."&screenshot=true");
+                // $screen_shot_result = json_decode($screen_shot_json_data, true);
+                // $screen_shot = $screen_shot_result['screenshot']['data'];
+                // $screen_shot = str_replace(array('_','-'), array('/', '+'), $screen_shot);
+                // $screen_shot_image = "<img style='width: 100%' src=\"data:image/jpeg;base64,".$screen_shot."\"/>";
+
+                //$screen_shot_image = 
+                
+                return $this->getLinkPreview($rq->site_url);
             }
             catch (Exception $e) 
             {
@@ -231,8 +252,10 @@ class ArticleController extends Controller
                 $query = $query->where('article_title', urldecode(str_replace('-', '+', $articleName)));
 
             $articlePost = $query->firstOrFail();
+
+            $link_preview = $this->getLinkPreview($articlePost->article_link);
             
-            return view('user.article_post', compact('articlePost'));
+            return view('user.article_post', compact('articlePost', 'link_preview'));
         }
         catch (Exception $e) 
         {
