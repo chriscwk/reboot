@@ -23,10 +23,10 @@
 			              	<form method="POST" action="{{ action('AdminController@sign_in') }}" class="pt-3">
 								@csrf
 			                	<div class="form-group">
-			                  		<input type="username" class="form-control" placeholder="Username">
+			                  		<input type="username" name="username" class="form-control" placeholder="Username">
 			                	</div>
 			                	<div class="form-group">
-			                  		<input type="password" class="form-control" placeholder="Password">
+			                  		<input type="password" name="password" class="form-control" placeholder="Password">
 			                	</div>
 			                	<div class="mt-3">
 			                  		<button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="">SIGN IN</button>
@@ -40,6 +40,19 @@
 	    </div>
 	    
 		@include('layouts.admin_scripts')
+
+		<script>
+			$(function() {
+				 @if(session('msg_status'))
+					swal({
+						html: '{!! session('msg_status') !!}',
+						type: '{{ session('msg_class') }}',
+						confirmButtonText: 'Ok'
+					});
+				@endif
+			});
+		</script>
+
 		@yield('scripts')
 	</div>
 </body>

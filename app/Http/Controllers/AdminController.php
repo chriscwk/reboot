@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Exception;
+use Auth;
 
 // Eloquent Models Shortcuts
+use App\Admin;
 use App\User;
 use App\Article;
 use App\Category;
@@ -27,8 +29,14 @@ class AdminController extends Controller
     }
 
     public function sign_in(Request $rq)
-    {
-        return redirect()->route('admin-dashboard');
+    {   
+        $admin = Admin::where('username', $rq->username)->where('password', $rq->password)->first();
+        
+        if($admin) {
+            return redirect()->route('admin-dashboard');
+        } else {
+            return back()->with(['msg_status' => 'Wrong username/password combination!<br>Please try again.', 'msg_class' => 'error']);
+        }
     }
 
 
