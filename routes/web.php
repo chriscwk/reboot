@@ -18,16 +18,29 @@ Route::post('/signin', 'NormalController@sign_in');
 Route::post('/signup', 'NormalController@sign_up');
 Route::get('/signout', 'NormalController@sign_out');
 
+Route::get('/categories', 'CategoryController@index')->name('category-index');
+Route::get('/categories/{categoryId}', 'CategoryController@getCategoryDetails');
+
 Route::get('/articles', 'ArticleController@index')->name('articles');
+Route::get('/articles/{articleId}/{articleName}', 'ArticleController@getArticleDetails');
 Route::get('/articles/create', 'ArticleController@create');
+Route::post('/articles/getApprovedArticleByPage', 'ArticleController@getApprovedArticleByPage');
 Route::post('/articles/store', 'ArticleController@store');
 Route::post('/articles/edit/view', 'ArticleController@edit');
 Route::post('/articles/edit/update', 'ArticleController@update');
 Route::get('/articles/delete/{id}', 'ArticleController@destroy');
+Route::post('/articles/crawl_site', 'ArticleController@crawl_site');
+
+Route::get('/events', 'EventController@index')->name('events');
+Route::get('/events/create', 'EventController@create');
+Route::post('/events/edit/view', 'EventController@edit');
+Route::post('/events/getEvents', 'EventController@getEvents');
+Route::post('/events/store', 'EventController@store');
+Route::post('/events/getLatLong', 'EventController@getLatLong');
+Route::get('/events/delete/{id}', 'EventController@destroy');
 
 Route::get('login/facebook', 'LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'LoginController@handleProviderCallback');
-
 
 // Administrator Routes
 Route::get('/administrator', 'AdminController@sign_in_view');

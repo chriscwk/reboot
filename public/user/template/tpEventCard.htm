@@ -1,0 +1,30 @@
+<script id="tpEventCard" type="text/x-jquery-tmpl">
+{{each event}}
+{{if $index % 2 == 0}}
+    <div class="row">
+{{/if}}       
+        <div class="col-xl-6">
+            <button class="btn btn-danger btn-icon btn-rounded meetup-delete"><i class="fas fa-trash"></i></button>
+            <div data-id="${id}" data-url="/events/${id}/${encoded_name}" class="card meetup-card">
+                <div id="event-map-${$index + 1}" class="map"></div>
+                <div class="card-body">
+                    <div class="meetup-headline">
+                        ${event_title}
+                    </div>
+                    <div class="meetup-headline">
+                        ${event_start_time} to ${event_end_time}
+                    </div>
+                    <hr>
+                    <div class="meetup-timestamp">
+                        Created on ${created_at}
+                        <div class="meetup-author">By <strong>${event_organizer}</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+{{if $index % 2 != 0}}
+    </div>
+    <hr>
+{{/if}}    
+{{/each}}
+</script>

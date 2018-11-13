@@ -79,7 +79,6 @@
 			}).then((result) => {
 				if (result.value) {
 				   var id = $(this).next().attr('data-id');
-				   
 				   document.location.href = '/articles/delete/' + id;
 				}
 			});

@@ -1,4 +1,4 @@
--.section-header {
+.section-header {
 	padding: 15px;
 }
 
@@ -29,6 +29,23 @@
 }
 
 .article-headline {
+	margin-top: 5px;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.meetup-card {
+	margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.meetup-card .card-body {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+
+.meetup-headline {
 	margin-top: 5px;
 	text-overflow: ellipsis;
     white-space: nowrap;

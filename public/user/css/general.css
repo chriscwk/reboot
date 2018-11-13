@@ -67,3 +67,22 @@ body {
 		display: none;
 	}
 }
+
+.custom-spinner {
+	margin-top: 30px;
+}
+
+.custom-spinner-text {
+	margin: 30px;
+}
+
+.map {
+	height: 200px;
+	width: 100%;
+}
+
+.map-preview {
+	height: 400px;
+	width: 100%;
+	margin-bottom: 20px;
+}

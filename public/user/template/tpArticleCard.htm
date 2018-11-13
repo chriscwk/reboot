@@ -1,0 +1,22 @@
+<script id="tpArticleCard" type="text/x-jquery-tmpl">
+{{each article}}
+    <div class="row">
+        <div class="col-xl-12">
+            <div data-id="${id}" data-url="/articles/${id}/${encoded_name}" class="card article-card">
+                <img class="article-img" src="/user/articles/${article_img}" />
+                <div class="card-body">
+                    <div class="article-headline">
+                        ${article_title}
+                    </div>
+                    <hr>
+                    <div class="article-timestamp">
+                        Created on ${created_at}
+                        <div class="article-author">By <strong>${author}</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+{{/each}}
+</script>

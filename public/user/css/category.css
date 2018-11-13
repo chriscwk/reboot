@@ -1,0 +1,59 @@
+.category-badge {
+	float: right;
+}
+
+.category-img {
+	height: 200px;
+	object-fit: cover;
+	border-top-left-radius: 0.3125rem;
+	border-top-right-radius: 0.3125rem;
+}
+
+.category-card {
+    margin-bottom: 20px;
+	cursor: pointer;
+}
+
+.category-card .card-body {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.category-card .category-title {
+	font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #a347ff;
+}
+
+.category-card .category-desc {
+	color: #737373;
+	text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.badge {
+	padding: 5px 10px;
+	font-size: 10px;
+}
+
+.badge-pending {
+ 	color: #fff;
+ 	background-color: #b66dff;
+}
+
+.badge-rejected {
+	color: #fff;
+ 	background-color: #fe7c96;
+}
+
+.badge-unpublish {
+	color: #fff;
+ 	background-color: #3e4b5b;
+}
+
+.badge-publish {
+	color: #fff;
+ 	background-color: #1bcfb4;
+}

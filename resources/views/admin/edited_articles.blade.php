@@ -41,7 +41,7 @@
 													@endif
 												</td>
 												<td>{{ date("d M Y", strtotime($article->created_at)) }}</td>
-												<td><a href="{{ action('AdminController@edited_article_content', $article->article_id) }}" target="_blank" class="btn btn-info btn-sm w-100">View</a></td>
+												<td><a href="{{ action('AdminController@edited_article_content', $article->id) }}" target="_blank" class="btn btn-info btn-sm w-100">View</a></td>
 												<td>
 													@if($article->verified == 0)
 													<button class="btn btn-danger btn-sm btn-reject">Reject</button>

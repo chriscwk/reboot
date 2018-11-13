@@ -190,7 +190,7 @@ class AdminController extends Controller
 
     public function edited_article_content($id)
     {
-        $article = EditedArticle::where('article_id', $id)->join('articles', 'articles.id', 'edited_articles.article_id')
+        $article = EditedArticle::where('edited_articles.id', $id)->join('articles', 'articles.id', 'edited_articles.article_id')
             ->select('articles.article_title', 'edited_articles.*')
             ->first();
 
