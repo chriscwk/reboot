@@ -93,3 +93,26 @@
 	height: 400px;
 	width: 100%;
 }
+
+.event-attendees {
+	margin-bottom: 20px;
+}
+
+.attendee-item {
+	height: 50px;
+    width: 24%;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin: 0.25%;
+    display: inline-block;
+}
+
+.attendee-img {
+	height: 100%;
+	margin-right: 20px;
+}
+
+.attendee-item p {
+	display: inline-block;
+}

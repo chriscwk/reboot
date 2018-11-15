@@ -59,7 +59,7 @@
 											</tr>
 										@endforeach
 									@else
-										<tr><td colspan=3 style="text-align:center;">No data available.</td></tr>
+										<tr><td colspan=7 style="text-align:center;">No data available.</td></tr>
 									@endif
 								</tbody>
 							</table>

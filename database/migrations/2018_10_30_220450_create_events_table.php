@@ -17,7 +17,7 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->index();
             $table->string('event_title');
-            $table->string('event_description');
+            $table->longText('event_description');
             $table->string('event_loca_address');
             $table->string('event_lat');
             $table->string('event_long');

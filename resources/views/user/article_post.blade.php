@@ -31,7 +31,7 @@
                                     <a >{{ $articlePost->author }}</a>
                                 </span>
                                 <span>
-                                    <i class="fa fa-clock-o"></i>
+                                    <i class="fas fa-clock-o"></i>
                                     <a >{{ date('d M Y', strtotime($articlePost->created_at)) }}</a>
                                 </span>
                                 <span>

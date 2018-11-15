@@ -32,12 +32,15 @@ Route::get('/articles/delete/{id}', 'ArticleController@destroy');
 Route::post('/articles/crawl_site', 'ArticleController@crawl_site');
 
 Route::get('/events', 'EventController@index')->name('events');
+Route::get('/events/all', 'EventController@all_events');
 Route::get('/events/create', 'EventController@create');
 Route::post('/events/edit/view', 'EventController@edit');
 Route::post('/events/getEvents', 'EventController@getEvents');
 Route::post('/events/store', 'EventController@store');
 Route::post('/events/getLatLong', 'EventController@getLatLong');
 Route::get('/events/delete/{id}', 'EventController@destroy');
+Route::get('/events/view/{id}', 'EventController@view_event');
+Route::get('/events/rsvp/{id}', 'EventController@rsvp_event');
 
 Route::get('login/facebook', 'LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'LoginController@handleProviderCallback');

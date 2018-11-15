@@ -1,6 +1,6 @@
 @extends('layouts.base_template')
 
-@section('title', 'Meetups')
+@section('title', 'My Meetups')
 
 @section('links')
 	<link rel="stylesheet" href="/user/css/meetup.css">
@@ -14,11 +14,12 @@
 	<div class="main-container">
 		<section id="event-container">
 			<div class="section-header">
-				<h3>Meetups</h3>
+				<h3>My Meetups</h3>
 				<a href="{{ action('EventController@create') }}" class="btn btn-info btn-sm"><i class="fas fa-plus"></i></a>
 			</div>
 
 		</section>
+		<hr>
 	</div>
 
 	<form id="edit_event_form" method="POST" action="{{ action('EventController@edit') }}">

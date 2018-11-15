@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 // Eloquent Models
 use App\Event;
+use App\EventRsvp;
 
 class EventController extends Controller
 {
@@ -172,6 +174,36 @@ class EventController extends Controller
         catch (Exception $e) 
         {
             return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to retrieve lat/long from address.']);
+        }
+    }
+
+    public function all_events()
+    {
+        return view('user.events_all');
+    }
+
+    public function view_event($id)
+    {
+        $event = Event::find($id);
+        $attendees = EventRsvp::where('event_id', $event->id)->orderBy('created_at', 'desc')->get();
+
+        $alreadyRsvp = EventRsvp::where('event_id', $event->id)->where('user_id', \Auth::user()->id)->first();
+
+        return view('user.events_single', compact('event', 'attendees', 'alreadyRsvp'));
+    }
+
+    public function rsvp_event(Request $rq, $id)
+    {
+        try {
+            $rsvp = new EventRsvp;
+            $rsvp->event_id = $id;
+            $rsvp->user_id = $rq->user_id;
+            $rsvp->status = 1;
+            $rsvp->save();
+
+            return back()->with(['msg_class' => 'success', 'msg_success' => 'Successfully RSVP to the event.']);
+        } catch (Exception $e) {
+            return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to RSVP to the event. Please try again.']);
         }
     }
 }
