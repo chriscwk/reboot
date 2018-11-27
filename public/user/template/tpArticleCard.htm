@@ -2,6 +2,7 @@
 {{each article}}
     <div class="row">
         <div class="col-xl-12">
+            <button class="btn btn-icon btn-rounded article-favorite"><i class="fas fa-heart"></i></button>
             <div data-id="${id}" data-url="/articles/${id}/${encoded_name}" class="card article-card">
                 <img class="article-img" src="/user/articles/${article_img}" />
                 <div class="card-body">

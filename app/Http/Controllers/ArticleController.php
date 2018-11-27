@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Category;
 use App\Article;
 use App\EditedArticle;
+use App\FavoriteArticle;
 
 class ArticleController extends Controller
 {
@@ -222,6 +223,22 @@ class ArticleController extends Controller
             if ($categoryId != null && $categoryId != "")
                 $query = $query->where('category_id', $categoryId);
 
+
+            $query = $query->leftJoin('favorite_articles', function($join) {
+                $join
+                    ->on('favorite_articles.article_id', '=', 'article.id')
+                    ->where('favorite_articles.user_id', '=', '1')
+            });
+
+            // if (\Auth::user()->id != "")
+            // {
+            //     $query = $query->leftJoin('favorite_articles', function($join) {
+            //         $join
+            //             ->on('favorite_articles.article_id', '=', 'article.id')
+            //             ->on('favorite_articles.user_id', '=', \Auth::user()->id);
+            //     });
+            // }
+
             $query = $query->orderBy('created_at', 'desc');
             $query = $query->limit($rowsPerQuery)->offset($current);
 
@@ -260,6 +277,34 @@ class ArticleController extends Controller
         catch (Exception $e) 
         {
             return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to retrieve article.']);
+        }
+    }
+
+    public function favoriteArticle(Request $rq)
+    {
+        try
+        {
+            $favArticle = new FavoriteArticle;
+            $favArticle->article_id = $rq->article_id;
+            $favArticle->user_id = \Auth::user()->id;
+            $favArticle->status = 1;
+            $isFavorited = $rq->isFavorited === 'true'? true: false;
+
+            if ($isFavorited)
+            {
+                $isExist = FavoriteArticle::where('article_id', $favArticle->article_id)->where('user_id', $favArticle->user_id)->first();
+                if (!$isExist)
+                    $favArticle->save();
+            }
+            else
+            {
+                $toDelete = FavoriteArticle::where('article_id', $favArticle->article_id)->where('user_id', $favArticle->user_id);
+                $toDelete->delete();
+            }
+        }
+        catch (Exception $e) 
+        {
+            return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to favorite the article.']);
         }
     }
 

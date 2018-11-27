@@ -25,6 +25,7 @@ Route::get('/articles', 'ArticleController@index')->name('articles');
 Route::get('/articles/{articleId}/{articleName}', 'ArticleController@getArticleDetails');
 Route::get('/articles/create', 'ArticleController@create');
 Route::post('/articles/getApprovedArticleByPage', 'ArticleController@getApprovedArticleByPage');
+Route::post('/articles/favoriteArticle', 'ArticleController@favoriteArticle');
 Route::post('/articles/store', 'ArticleController@store');
 Route::post('/articles/edit/view', 'ArticleController@edit');
 Route::post('/articles/edit/update', 'ArticleController@update');

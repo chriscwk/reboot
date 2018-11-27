@@ -17,4 +17,9 @@ class Article extends Model
     {
         return str_replace('+', '-', urlencode($this->article_title));
     }
+
+    public function favoriteArticles()
+    {
+        return $this->hasMany('App\FavoriteArticle');
+    }
 }

@@ -46,7 +46,20 @@
         $(document).on('click', '.card', function () {
             window.location.href = $(this).attr('data-url');
         });
-
+        
+        $(document).on('click', '.article-favorite', function (e) {
+            var isFavorited = $(this).hasClass("btn-danger");
+            if (isFavorited) {
+                $(this).removeClass("btn-danger");
+            }
+            else {
+                $(this).addClass("btn-danger");
+            }
+            isFavorited = !isFavorited;
+            var article_id = $(this).next().attr('data-id');
+			favorite_article(isFavorited, article_id);
+        });
+        
     });
 
     function retrieve_article() {
@@ -75,6 +88,22 @@
 			$(".custom-spinner").hide();
         });
     }
+
+    function favorite_article(isFavorited, article_id) {
+		$.ajax({
+			headers: { 'X-CSRF-TOKEN' : "{{ csrf_token() }}" },
+			type: 'POST',
+			url: '/articles/favoriteArticle',
+			data: { 'article_id' : article_id, 'isFavorited' : isFavorited },
+			success: function(data) {
+				
+			},
+			error: function(data) {
+				$.ajax(this);
+				return;
+			}
+		});
+	}
 
 </script>
 @endsection

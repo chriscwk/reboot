@@ -42,7 +42,8 @@
 	margin-bottom: 10px;
 }
 
-.article-delete {
+.article-delete,
+.article-favorite {
 	position: absolute;
 	top: 15px;
 	right: 30px;
