@@ -226,8 +226,8 @@ class ArticleController extends Controller
 
             $query = $query->leftJoin('favorite_articles', function($join) {
                 $join
-                    ->on('favorite_articles.article_id', '=', 'article.id')
-                    ->where('favorite_articles.user_id', '=', '1')
+                    ->on('favorite_articles.article_id', '=', 'articles.id')
+                    ->where('favorite_articles.user_id', '=', '1');
             });
 
             // if (\Auth::user()->id != "")
@@ -239,7 +239,7 @@ class ArticleController extends Controller
             //     });
             // }
 
-            $query = $query->orderBy('created_at', 'desc');
+            $query = $query->orderBy('articles.created_at', 'desc');
             $query = $query->limit($rowsPerQuery)->offset($current);
 
             $approvedArticles = $query->get();
@@ -250,6 +250,7 @@ class ArticleController extends Controller
         }
         catch (Exception $e) 
         {
+            dd($e);
             return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to retrieve articles.']);
         }
     }
