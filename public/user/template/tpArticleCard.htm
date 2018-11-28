@@ -2,7 +2,13 @@
 {{each article}}
     <div class="row">
         <div class="col-xl-12">
+            {{if logged_in == true}}
+            {{if user_id != null}}
+            <button class="btn btn-danger btn-icon btn-rounded article-favorite"><i class="fas fa-heart"></i></button>
+            {{else}}
             <button class="btn btn-icon btn-rounded article-favorite"><i class="fas fa-heart"></i></button>
+            {{/if}}  
+            {{/if}}  
             <div data-id="${id}" data-url="/articles/${id}/${encoded_name}" class="card article-card">
                 <img class="article-img" src="/user/articles/${article_img}" />
                 <div class="card-body">

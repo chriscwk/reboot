@@ -223,24 +223,15 @@ class ArticleController extends Controller
             if ($categoryId != null && $categoryId != "")
                 $query = $query->where('category_id', $categoryId);
 
-
             $query = $query->leftJoin('favorite_articles', function($join) {
                 $join
                     ->on('favorite_articles.article_id', '=', 'articles.id')
-                    ->where('favorite_articles.user_id', '=', '1');
+                    ->where('favorite_articles.user_id', '=', \Auth::check() ? \Auth::user()->id : "");
             });
-
-            // if (\Auth::user()->id != "")
-            // {
-            //     $query = $query->leftJoin('favorite_articles', function($join) {
-            //         $join
-            //             ->on('favorite_articles.article_id', '=', 'article.id')
-            //             ->on('favorite_articles.user_id', '=', \Auth::user()->id);
-            //     });
-            // }
 
             $query = $query->orderBy('articles.created_at', 'desc');
             $query = $query->limit($rowsPerQuery)->offset($current);
+            $query = $query->select('articles.*', 'favorite_articles.user_id');
 
             $approvedArticles = $query->get();
 
@@ -250,7 +241,6 @@ class ArticleController extends Controller
         }
         catch (Exception $e) 
         {
-            dd($e);
             return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to retrieve articles.']);
         }
     }
