@@ -136,7 +136,7 @@
 	<script>
 		$(function() {
 			$('input[name="user_birth"]').mask("00/00/0000", {placeholder: "dd/mm/yyyy"});
-			$('input[name="user_phone"]').mask('(+6) 000-0000000');
+			$('input[name="user_phone"]').mask('(+6) 000-00000000');
 
 			$('.btn-signup').on('click', function() {
 				var valid_signup = true;

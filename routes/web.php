@@ -46,6 +46,9 @@ Route::get('/events/rsvp/{id}', 'EventController@rsvp_event');
 Route::get('login/facebook', 'LoginController@redirectToProvider');
 Route::get('login/facebook/callback', 'LoginController@handleProviderCallback');
 
+Route::get('/user-profile', 'UserController@index')->name('userprofile');
+Route::post('/user-profile/update', 'UserController@update');
+
 // Administrator Routes
 Route::get('/administrator', 'AdminController@sign_in_view');
 Route::post('/administrator', 'AdminController@sign_in');

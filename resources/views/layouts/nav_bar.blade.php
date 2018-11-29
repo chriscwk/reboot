@@ -18,7 +18,7 @@
 				{{-- <li><a id="aboutUs" href="javascript:;">About Us</a></li> --}}
 				
 				<li>
-					<a href="javascript:;"><img class="user-img" src="http://icons-for-free.com/free-icons/png/512/1287507.png" />{{ Auth::user()->first_name }}</a>
+					<a href="{{ action('UserController@index') }}"><img class="user-img" src="http://icons-for-free.com/free-icons/png/512/1287507.png" />{{ Auth::user()->first_name }}</a>
 				</li>
 					@if(\Auth::user()->publisher == 1)
 					<li><a href="{{ action('ArticleController@index') }}">My Articles</a></li>

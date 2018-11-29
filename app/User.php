@@ -27,4 +27,14 @@ class User extends Authenticatable
     // protected $hidden = [
     //     'password', 'remember_token',
     // ];
+
+    public function getPublishedArticlesAttribute()
+    {
+        return $this->hasMany('App\Article')->whereUserId($this->id)->count();
+    }
+
+    public function getOrganizedMeetupsAttribute()
+    {
+        return $this->hasMany('App\Event')->whereUserId($this->id)->count();
+    }
 }
