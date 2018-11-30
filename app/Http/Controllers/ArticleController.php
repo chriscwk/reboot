@@ -9,6 +9,7 @@ use App\Category;
 use App\Article;
 use App\EditedArticle;
 use App\FavoriteArticle;
+use App\Comment;
 
 class ArticleController extends Controller
 {
@@ -263,7 +264,9 @@ class ArticleController extends Controller
 
             $link_preview = $this->getLinkPreview($articlePost->article_link);
             
-            return view('user.article_post', compact('articlePost', 'link_preview'));
+            $articleComments = Comment::where('article_id', $articleId)->orderBy('created_at', 'desc')->paginate(10);
+
+            return view('user.article_post', compact('articlePost', 'link_preview', 'articleComments', 'articleId'));
         }
         catch (Exception $e) 
         {
@@ -299,4 +302,22 @@ class ArticleController extends Controller
         }
     }
 
+    public function addComment(Request $rq)
+    {
+        try
+        {
+            $comment = new Comment;
+            $comment->article_id    = $rq->article_id;
+            $comment->user_id       = \Auth::user()->id;
+            $comment->comment_text  = $rq->comment_area;
+            $comment->created_by    = \Auth::user()->first_name.' '.\Auth::user()->last_name;
+
+            $comment->save();
+            return back()->with(['msg_class' => 'success', 'msg_success' => 'Your comment have been posted.']);
+        }
+        catch (Exception $e) 
+        {
+            return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to add comment.']);
+        }
+    }
 }

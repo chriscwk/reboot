@@ -1,6 +1,6 @@
 @extends('layouts.base_template')
 
-@section('title', 'Post')
+@section('title', $articlePost->article_title)
 
 @section('links')
 	<link rel="stylesheet" href="/user/css/single_article.css">
@@ -53,8 +53,46 @@
                     </div>
                 </div>
             </div>
+
 		</section>
 		<hr>
+        
+        <form id="comment_form" method="POST" action="{{ action('ArticleController@addComment') }}" enctype="multipart/form-data">
+            @csrf
+            <section id="comment-section">
+                <h4>Comment Section</h4>
+                <p>Posted comments are not removable. Ensure your comments meet our policy. </p>
+                <input type="hidden" name="article_id" value="{{ $articleId }}" />
+                <div class="row">
+                    <div class="col-xl-10">
+                        <textarea id="comment-area" name="comment_area"></textarea>
+                    </div>
+                    <div class="col-xl-2">
+                        <button type="button" class="btn btn-info btn-block btn-submit" style="height:100%;">
+                            <i class="fas fa-paper-plane fa-2x"></i>
+                        </button>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+					<div class="col-xl-12">
+                        <table class="table">
+                            @foreach ($articleComments as $comment)
+                            <tr>
+                                <td><strong>{{$comment->created_by}}</strong> says</td>
+                                <td>{{$comment->comment_text}}</td>
+                                <td class="text-right">at <strong>{{ date('d/m h:i A', strtotime($comment->created_at)) }}</strong></td>
+                            <tr>
+                            @endforeach
+                        </table>
+					</div>
+					<div class="col-xl-12">
+					    {{ $articleComments->links() }}
+                    </div>
+                </div>
+            </section>
+        </form>
+       
 	</div>
 
 @endsection
@@ -62,7 +100,27 @@
 @section('scripts')
 <script>
 	$(function() {
-
+        $('.btn-submit').on('click', function() {
+            if ("{{\Auth::check()}}") {
+                if ($("#comment-area").val().trim() != "") {
+                    $("#comment_form").submit();
+                }
+                else {
+                    swal({
+                        text: "Try putting in some comments.",
+                        type: "warning",
+                        confirmButtonText: "Ok"
+				    });
+                }
+            }
+            else {
+                swal({
+					text: "You have to be logged in to post your comments.",
+					type: "error",
+					confirmButtonText: "Ok"
+				});
+            }
+		});
 	});
 </script>
 @endsection
