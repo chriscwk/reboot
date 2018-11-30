@@ -21,9 +21,10 @@ class UserController extends Controller
         $query = FavoriteArticle::query();
         $query = $query->where('favorite_articles.user_id', \Auth::user()->id);
         $query = $query->join('articles', 'articles.id', '=', 'favorite_articles.article_id');
+        $query = $query->orderBy('favorite_articles.created_at', 'desc');
         $query = $query->select('articles.*');
         $favoritedArticles = $query->paginate(3);
-
+        
         return view('user.user_profile', compact('userProfile', 'favoritedArticles'));
     }
 

@@ -260,6 +260,13 @@ class ArticleController extends Controller
             if ($articleName != null && $articleName != "")
                 $query = $query->where('article_title', urldecode(str_replace('-', '+', $articleName)));
 
+            $query = $query->leftJoin('favorite_articles', function($join) {
+                $join
+                    ->on('favorite_articles.article_id', '=', 'articles.id')
+                    ->where('favorite_articles.user_id', '=', \Auth::check() ? \Auth::user()->id : "");
+            });
+            $query = $query->select('articles.*', 'categories.category_name', 'favorite_articles.user_id AS is_favorited');
+
             $articlePost = $query->firstOrFail();
 
             $link_preview = $this->getLinkPreview($articlePost->article_link);

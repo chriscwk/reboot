@@ -22,9 +22,4 @@ class Article extends Model
     {
         return \Auth::check();
     }
-
-    public function favoriteArticles()
-    {
-        return $this->hasMany('App\FavoriteArticle');
-    }
 }

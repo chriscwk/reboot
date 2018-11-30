@@ -8,6 +8,10 @@
 		#content-previewer{
 			border: 2px solid black;
 		}
+
+        .fav-icon {
+            cursor: pointer;
+        }
 	</style>
 @endsection
 
@@ -38,6 +42,15 @@
                                     <i class="fa fa-folder-o"></i>
                                     <a href="/categories/{{ $articlePost->category_id }}">{{ $articlePost->category_name }}</a>
                                 </span>
+                                <span>
+                                    @if(\Auth::check())
+                                        @if($articlePost->is_favorited != "")
+                                        <i class="fas fa-heart fav-icon text-danger"></i>
+                                        @else
+                                        <i class="fas fa-heart fav-icon"></i>
+                                        @endif
+                                    @endif
+                                </span>
                             </div>
                             <div class="singl-article-details">
 
@@ -56,7 +69,7 @@
 
 		</section>
 		<hr>
-        
+
         <form id="comment_form" method="POST" action="{{ action('ArticleController@addComment') }}" enctype="multipart/form-data">
             @csrf
             <section id="comment-section">
@@ -87,7 +100,7 @@
                         </table>
 					</div>
 					<div class="col-xl-12">
-					    {{ $articleComments->links() }}
+                        {!! $articleComments->fragment('comment-section')->render() !!}
                     </div>
                 </div>
             </section>
@@ -121,6 +134,35 @@
 				});
             }
 		});
+
+        $(document).on('click', '.fav-icon', function (e) {
+			var isFavorited = $(this).hasClass("text-danger");
+			if (isFavorited) {
+				$(this).removeClass("text-danger");
+			}
+			else {
+				$(this).addClass("text-danger");
+			}
+			isFavorited = !isFavorited;
+			var article_id = $('input[name="article_id"]').val();
+			favorite_article(isFavorited, article_id);
+		});
 	});
+
+    function favorite_article(isFavorited, article_id) {
+		$.ajax({
+			headers: { 'X-CSRF-TOKEN' : "{{ csrf_token() }}" },
+			type: 'POST',
+			url: '/articles/favoriteArticle',
+			data: { 'article_id' : article_id, 'isFavorited' : isFavorited },
+			success: function(data) {
+				
+			},
+			error: function(data) {
+				$.ajax(this);
+				return;
+			}
+		});
+	}
 </script>
 @endsection
