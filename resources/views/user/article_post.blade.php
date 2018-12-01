@@ -8,10 +8,6 @@
 		#content-previewer{
 			border: 2px solid black;
 		}
-
-        .fav-icon {
-            cursor: pointer;
-        }
 	</style>
 @endsection
 
@@ -42,12 +38,15 @@
                                     <i class="fa fa-folder-o"></i>
                                     <a href="/categories/{{ $articlePost->category_id }}">{{ $articlePost->category_name }}</a>
                                 </span>
-                                <span>
+                                <span id="article-ratings">
                                     @if(\Auth::check())
+                                        <i class="fas fa-thumbs-up rating-icon"></i> 0&nbsp;
+                                        <i class="fas fa-thumbs-down rating-icon"></i> 0&nbsp; 
+                                        <div class="separator"></div>
                                         @if($articlePost->is_favorited != "")
-                                        <i class="fas fa-heart fav-icon text-danger"></i>
+                                        <i class="fas fa-heart fav-icon text-danger rating-icon"></i>
                                         @else
-                                        <i class="fas fa-heart fav-icon"></i>
+                                        <i class="fas fa-heart fav-icon rating-icon"></i>
                                         @endif
                                     @endif
                                 </span>
@@ -111,8 +110,8 @@
 @endsection
 
 @section('scripts')
-<script>
-	$(function() {
+<script type="text/javascript">
+	$(document).ready(function () {
         $('.btn-submit').on('click', function() {
             if ("{{\Auth::check()}}") {
                 if ($("#comment-area").val().trim() != "") {
@@ -128,7 +127,7 @@
             }
             else {
                 swal({
-					text: "You have to be logged in to post your comments.",
+					text: "You have to be logged in to post comments.",
 					type: "error",
 					confirmButtonText: "Ok"
 				});
@@ -147,8 +146,8 @@
 			var article_id = $('input[name="article_id"]').val();
 			favorite_article(isFavorited, article_id);
 		});
-	});
-
+    });
+    
     function favorite_article(isFavorited, article_id) {
 		$.ajax({
 			headers: { 'X-CSRF-TOKEN' : "{{ csrf_token() }}" },
@@ -156,7 +155,12 @@
 			url: '/articles/favoriteArticle',
 			data: { 'article_id' : article_id, 'isFavorited' : isFavorited },
 			success: function(data) {
-				
+				if (isFavorited) {
+                    toastr.info('You just favorited the article!');
+                }
+                else {
+                    toastr.info('You just unfavorited the article!');
+                }
 			},
 			error: function(data) {
 				$.ajax(this);

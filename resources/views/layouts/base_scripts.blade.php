@@ -23,7 +23,11 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.5/sweetalert2.all.min.js"
   	crossorigin="anonymous"></script>
 
-
+<!-- Toastr -->
+<script 
+	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"
+	crossorigin="anonymous"></script>
+	  
 <!-- Custom Scripts -->
 <script src="/user/js/general.js"></script>
 <script src="/user/js/jquery.tmpl.js"></script>

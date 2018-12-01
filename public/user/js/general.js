@@ -32,5 +32,8 @@ $(function() {
 			$(elem).parent().removeClass('show');
 		});
 	}
-	
+
+	toastr.options = {
+		"positionClass": "toast-bottom-right"
+	}
 });

@@ -18,6 +18,11 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.28.5/sweetalert2.min.css" 
 	crossorigin="anonymous">
 
+<!-- Toastr -->
+<link rel="stylesheet" 
+	href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" 
+	crossorigin="anonymous">
+
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/user/css/general.css">
 <link rel="stylesheet" href="/user/css/navbar.css">

@@ -88,7 +88,7 @@
 			$(".custom-spinner").hide();
         });
     }
-
+    
     function favorite_article(isFavorited, article_id) {
 		$.ajax({
 			headers: { 'X-CSRF-TOKEN' : "{{ csrf_token() }}" },
@@ -96,7 +96,12 @@
 			url: '/articles/favoriteArticle',
 			data: { 'article_id' : article_id, 'isFavorited' : isFavorited },
 			success: function(data) {
-				
+				if (isFavorited) {
+                    toastr.info('You just favorited the article!');
+                }
+                else {
+                    toastr.info('You just unfavorited the article!');
+                }
 			},
 			error: function(data) {
 				$.ajax(this);
@@ -104,6 +109,5 @@
 			}
 		});
 	}
-
 </script>
 @endsection
