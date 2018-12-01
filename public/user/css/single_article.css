@@ -264,3 +264,9 @@
 .rating-icon {
     cursor: pointer;
 }
+
+.rating-count {
+    margin-left: 10px;
+    margin-right: 10px;
+    min-width: 20px;
+}

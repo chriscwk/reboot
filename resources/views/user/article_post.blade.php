@@ -39,9 +39,11 @@
                                     <a href="/categories/{{ $articlePost->category_id }}">{{ $articlePost->category_name }}</a>
                                 </span>
                                 <span id="article-ratings">
+                                        <i class="fas fa-thumbs-up rating-icon {{$userRating == 1 ? 'text-info' : ''}}" title="I like this"></i>
+                                        <label id="up-ratings" class="rating-count">{{ $articleRatings->positive_ratings }}</label>
+                                        <i class="fas fa-thumbs-down rating-icon {{$userRating == -1 ? 'text-info' : ''}}" title="I dislike this"></i>
+                                        <label id="down-ratings" class="rating-count">{{ $articleRatings->negative_ratings }}</label>
                                     @if(\Auth::check())
-                                        <i class="fas fa-thumbs-up rating-icon"></i> 0&nbsp;
-                                        <i class="fas fa-thumbs-down rating-icon"></i> 0&nbsp; 
                                         <div class="separator"></div>
                                         @if($articlePost->is_favorited != "")
                                         <i class="fas fa-heart fav-icon text-danger rating-icon"></i>
@@ -111,6 +113,7 @@
 
 @section('scripts')
 <script type="text/javascript">
+    var article_id = $('input[name="article_id"]').val();
 	$(document).ready(function () {
         $('.btn-submit').on('click', function() {
             if ("{{\Auth::check()}}") {
@@ -143,8 +146,15 @@
 				$(this).addClass("text-danger");
 			}
 			isFavorited = !isFavorited;
-			var article_id = $('input[name="article_id"]').val();
 			favorite_article(isFavorited, article_id);
+        });
+        
+        $(document).on('click', 'i.fa-thumbs-up', function (e) {
+            tilt_rating_display($(this));
+        });
+
+        $(document).on('click', 'i.fa-thumbs-down', function (e) {
+            tilt_rating_display($(this));
 		});
     });
     
@@ -167,6 +177,66 @@
 				return;
 			}
 		});
-	}
+    }
+    
+    function tilt_rating_display(thumb) {
+        if ("{{\Auth::check()}}") {
+            var isRate = false;
+            var caller = thumb.hasClass("fa-thumbs-up") ? "up" : "down";
+            var other = caller == "up" ? "down" : "up";
+
+            var callerRating = parseInt($("#" + caller + "-ratings").text());
+            var otherRating = parseInt($("#" + other + "-ratings").text());
+
+            if (thumb.hasClass("text-info")) { //has already been thumbed
+                thumb.removeClass("text-info");
+                $("#" + caller + "-ratings").text(callerRating - 1);
+
+                isRate = false; //un-thumbed
+            }
+            else { //hasn't been thumbed
+                thumb.addClass("text-info");
+                $("#" + caller + "-ratings").text(callerRating + 1);
+
+                if ($("i.fa-thumbs-" + other).hasClass("text-info")) {
+                    $("i.fa-thumbs-" + other).removeClass("text-info");
+                    $("#" + other + "-ratings").text(otherRating - 1);
+                }
+
+                isRate = true; //thumbed
+            }
+            tilt_rating(isRate, caller);
+        }
+        else {
+            swal({
+                text: "You have to be logged in to rate articles.",
+                type: "error",
+                confirmButtonText: "Ok"
+            });
+        }
+    }
+
+    function tilt_rating(isRate, rating) {
+        $.ajax({
+			headers: { 'X-CSRF-TOKEN' : "{{ csrf_token() }}" },
+			type: 'POST',
+			url: '/articles/rateArticle',
+			data: { 'article_id' : article_id, 'isRate' : isRate, 'rating' : rating },
+			success: function(data) {
+				if (isRate) {
+                    if (rating == "up") {
+                        toastr.info('You liked this article');
+                    }
+                    else {
+                        toastr.info('You disliked this article');
+                    }
+                }
+			},
+			error: function(data) {
+				$.ajax(this);
+				return;
+			}
+		});
+    }
 </script>
 @endsection

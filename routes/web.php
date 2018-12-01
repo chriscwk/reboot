@@ -32,6 +32,7 @@ Route::post('/articles/edit/update', 'ArticleController@update');
 Route::get('/articles/delete/{id}', 'ArticleController@destroy');
 Route::post('/articles/crawl_site', 'ArticleController@crawl_site');
 Route::post('/articles/addComment', 'ArticleController@addComment');
+Route::post('/articles/rateArticle', 'ArticleController@rateArticle');
 
 Route::get('/events', 'EventController@index')->name('events');
 Route::get('/events/all', 'EventController@all_events');

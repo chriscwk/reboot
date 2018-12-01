@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 
 // Eloquent Models
@@ -10,6 +12,7 @@ use App\Article;
 use App\EditedArticle;
 use App\FavoriteArticle;
 use App\Comment;
+use App\ArticlesRatings;
 
 class ArticleController extends Controller
 {
@@ -267,18 +270,68 @@ class ArticleController extends Controller
             });
             $query = $query->select('articles.*', 'categories.category_name', 'favorite_articles.user_id AS is_favorited');
 
+            //Main details
             $articlePost = $query->firstOrFail();
 
+            //Article's sub details
             $link_preview = $this->getLinkPreview($articlePost->article_link);
-            
-            $articleComments = Comment::where('article_id', $articleId)->orderBy('created_at', 'desc')->paginate(10);
+            $articleComments = $this->getArticleComments($articleId);
+            $articleRatings = $this->getArticleRatings($articleId);
+            $userRating = $this->getUserRating($articleId);
 
-            return view('user.article_post', compact('articlePost', 'link_preview', 'articleComments', 'articleId'));
+            return view('user.article_post', compact('articlePost', 'link_preview', 'articleComments', 'articleId', 'articleRatings', 'userRating'));
         }
         catch (Exception $e) 
         {
             return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to retrieve article.']);
         }
+    }
+
+    /**
+     * To get article's comments
+     * @param int $articleId
+     * @return list of comments
+     */
+    private function getArticleComments($articleId)
+    {
+        
+        return Comment::where('article_id', $articleId)->orderBy('created_at', 'desc')->paginate(10);
+    }
+
+    /**
+     * To get article's overall ratings
+     * @param int $articleId
+     * @return positive/negative ratings
+     */
+    private function getArticleRatings($articleId)
+    {
+        return DB::table('articles_ratings')
+                ->select(DB::raw("COUNT(*) as total_ratings, IFNULL(SUM(CASE WHEN rating = '1' THEN 1 ELSE 0 END), 0) AS positive_ratings, IFNULL(SUM(CASE WHEN rating = '-1' THEN 1 ELSE 0 END), 0) AS negative_ratings"))
+                ->where('article_id', '=', $articleId)
+                ->first();
+    }
+
+    /**
+     * To get user's rating
+     * @param int $articleId
+     * @return ratingLevel
+     * Rating Level:
+     * -1 = downvoted
+     * 0 = neutral
+     * 1 = upvoted
+     */
+    private function getUserRating($articleId)
+    {
+        $ratingLevel = 0;
+
+        if (\Auth::check())
+        {
+            $userRating = ArticlesRatings::where('article_id', $articleId)->where('user_id', \Auth::user()->id)->first();
+            if ($userRating != null)
+                $ratingLevel = $userRating->rating;
+        }
+
+        return $ratingLevel;
     }
 
     public function favoriteArticle(Request $rq)
@@ -321,6 +374,42 @@ class ArticleController extends Controller
 
             $comment->save();
             return back()->with(['msg_class' => 'success', 'msg_success' => 'Your comment have been posted.']);
+        }
+        catch (Exception $e) 
+        {
+            return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to add comment.']);
+        }
+    }
+
+    public function rateArticle(Request $rq)
+    {
+        try
+        {
+            $article_id = $rq->article_id;
+            $is_rate = $rq->isRate === 'true'? true: false;
+            $rating = $rq->rating === 'up' ? 1 : -1;
+
+            $temp = ArticlesRatings::where('article_id', $article_id)->where('user_id', \Auth::user()->id)->first();
+            $articleRating = $temp ? ArticlesRatings::find($temp->id) : null;
+
+            if ($articleRating && $is_rate) //update existing rating 
+            {
+                $articleRating->rating = $rating;
+                $articleRating->save();
+            }
+            else if ($articleRating && !$is_rate) //delete existing rating
+            {
+                $articleRating->rating = 0;
+                $articleRating->save();
+            }
+            else if ($is_rate) //insert new record
+            {
+                $articleRating = new ArticlesRatings;
+                $articleRating->article_id = $article_id;
+                $articleRating->user_id = \Auth::user()->id;
+                $articleRating->rating = $rating;
+                $articleRating->save();
+            }
         }
         catch (Exception $e) 
         {
