@@ -27,7 +27,12 @@
 <script 
 	src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"
 	crossorigin="anonymous"></script>
-	  
+
+<!-- Datepicker-->
+<script 
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"
+	crossorigin="anonymous"></script>
+
 <!-- Custom Scripts -->
 <script src="/user/js/general.js"></script>
 <script src="/user/js/jquery.tmpl.js"></script>

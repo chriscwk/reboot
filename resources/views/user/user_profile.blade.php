@@ -5,7 +5,6 @@
 @section('links')
 	<link rel="stylesheet" href="/user/css/user_profile.css">
 	<link rel="stylesheet" href="/user/css/article.css">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" />
 @endsection
 
 @section('content')
@@ -131,8 +130,6 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js"></script>
-
 <script>
 	$(document).ready(function () {
 		$('input[name="user_contact_number"]').mask('(+6) 000-00000000');

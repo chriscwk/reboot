@@ -23,6 +23,11 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" 
 	crossorigin="anonymous">
 
+<!-- Datepicker -->
+<link rel="stylesheet" 
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css" 
+	crossorigin="anonymous">
+
 <!-- Custom CSS -->
 <link rel="stylesheet" href="/user/css/general.css">
 <link rel="stylesheet" href="/user/css/navbar.css">

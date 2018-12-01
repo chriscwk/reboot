@@ -9,7 +9,7 @@
 	transform: translate(-50%, -50%);
 
 	width: 0;
-	height: 36.5vh;
+	height: 47.5vh;
 	background: #FFF;
 	border-radius: 20px;
 
@@ -20,7 +20,7 @@
 
 .signin-overlay.show {
 	z-index: 2;
-	width: 30vw;
+	width: 35vw;
 	visibility: visible;
 
 	-webkit-box-shadow: 0px 5px 5px 0px rgba(179,179,179,1);
@@ -28,6 +28,22 @@
 	box-shadow: 0px 5px 5px 0px rgba(179,179,179,1);
 
 	transition: z-index 0.5s ease, width 0.5s ease, box-shadow 1s ease 0.5s;
+}
+
+@media (max-width: 1199px) {
+    .signin-overlay.show {
+		width: 40vw;
+    }
+}
+@media (max-width: 991px) {
+	.signin-overlay.show {
+		width: 60vw;
+	}
+}
+@media (max-width: 480px) {
+	.signin-overlay.show {
+		width: 90vw;
+	}
 }
 
 .signin-container {
@@ -54,9 +70,8 @@
 
 .signin-body {
 	padding: 20px;
-	height: 70%;
+	height: 80%;
 	overflow: auto;
-
 }
 
 @keyframes drawLine {

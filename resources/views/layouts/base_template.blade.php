@@ -138,6 +138,13 @@
 			$('input[name="user_birth"]').mask("00/00/0000", {placeholder: "dd/mm/yyyy"});
 			$('input[name="user_phone"]').mask('(+6) 000-00000000');
 
+			$('input[name="user_birth"]').on('keydown', function(){
+				return false;
+			});
+			$('input[name="user_birth"]').datepicker({
+				format: 'dd/mm/yyyy'
+			});
+		
 			$('.btn-signup').on('click', function() {
 				var valid_signup = true;
 
