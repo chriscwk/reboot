@@ -29,7 +29,7 @@
                                     <a href="javascript:;" class="btn btn-secondary pull-right">Already RSVP</a>
                                     @elseif(count($attendees) < $event->event_max && \Auth::user()->id != $event->user_id)
                                     <a href="/events/rsvp/{{ $event->id }}?user_id={{ \Auth::user()->id }}" class="btn btn-info pull-right">RSVP</a>
-                                    @else
+                                    @elseif(count($attendees) == $event->event_max)
                                     <a href="javascript:;" class="btn btn-danger pull-right">Full</a>
                                     @endif
                                 </h3>

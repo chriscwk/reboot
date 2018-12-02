@@ -36,7 +36,7 @@
 		retrieve_my_events();
 
 		$(document).on('click', '.card', function () {
-			//window.location.href = $(this).attr('data-url');
+			window.location.href = $(this).attr('data-url');
 		});
 
 		$(document).on('click', '.meetup-delete', function (e) {
