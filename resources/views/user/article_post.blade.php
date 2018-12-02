@@ -57,7 +57,7 @@
 
                                 @if($articlePost->article_link != "")
                                 <div id="content-previewer">{!! $link_preview !!}</div>
-                                <div class="read-more text-center">Read more <a href="{{ $articlePost->article_link }}">here</a></div>
+                                <div class="read-more text-center">Read more <a href="{{ $articlePost->article_link }}" target="_blank">here</a></div>
                                 @else
                                 {!! $articlePost->article_text !!}
                                 @endif

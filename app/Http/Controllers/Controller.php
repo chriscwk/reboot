@@ -19,4 +19,18 @@ class Controller extends BaseController
         $len = strpos($string, $end, $ini) - $ini;
         return substr($string, $ini, $len);
     }
+    
+    public function addhttp($url) 
+    {
+        if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+            $url = "http://" . $url;
+        }
+        return $url;
+    }
+
+    public function getLinkPreview($url)
+    {
+        $url = $this->addhttp($url);
+        return "<img style='width: 100%' src='"."https://image.thum.io/get/width/1920/crop/1080/".$url."'></img>";
+    }
 }

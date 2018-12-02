@@ -185,7 +185,8 @@ class AdminController extends Controller
     public function article_content($id)
     {
         $article = Article::find($id);
-        return view('admin.view_article', compact('article'));
+        $link_preview = $this->getLinkPreview($article->article_link);
+        return view('admin.view_article', compact('article', 'link_preview'));
     }
 
     public function edited_article_content($id)
