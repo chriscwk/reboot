@@ -27,10 +27,12 @@
 
                                     @if($alreadyRsvp)
                                     <a href="javascript:;" class="btn btn-secondary pull-right">Already RSVP</a>
-                                    @elseif(count($attendees) < $event->event_max && \Auth::user()->id != $event->user_id)
+                                    @elseif(count($attendees) < $event->event_max && \Auth::user()->id != $event->user_id && time() < strtotime($event->event_start_time))
                                     <a href="/events/rsvp/{{ $event->id }}?user_id={{ \Auth::user()->id }}" class="btn btn-info pull-right">RSVP</a>
                                     @elseif(count($attendees) == $event->event_max)
                                     <a href="javascript:;" class="btn btn-danger pull-right">Full</a>
+                                    @elseif(time() >= strtotime($event->event_start_time))
+                                    <a href="javascript:;" class="btn btn-danger pull-right">Overdue</a>
                                     @endif
                                 </h3>
                             </div>

@@ -228,5 +228,6 @@ return [
 
     //Home page items per load
     'home_articles_per_page' => 10,
-    
+    'favorite_article_pagination' => 'favartpag',
+    'attended_meetups_pagination' => 'atmeetpag',
 ];

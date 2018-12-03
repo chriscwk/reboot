@@ -5,6 +5,7 @@
 @section('links')
 	<link rel="stylesheet" href="/user/css/user_profile.css">
 	<link rel="stylesheet" href="/user/css/article.css">
+	<link rel="stylesheet" href="/user/css/meetup.css">
 @endsection
 
 @section('content')
@@ -97,32 +98,72 @@
 			
 			<br>
 
-			<div id="divFavoritedArticles">
-				<h3>My Favorite Articles</h3>
-				<hr>
-				<div class="row">
-					@foreach ($favoritedArticles as $article)
-					<div class="col-xl-12">
-						<div data-id="{{ $article->id }}" data-url="/articles/{{ $article->id }}/{{ $article->encoded_name }}" class="card article-card">
-							<img class="article-img" src="/user/articles/{{ $article->article_img }}" />
-							<div class="card-body">
-								<div class="article-headline">
-									{{ $article->article_title }}
-								</div>
-								<hr>
-								<div class="article-timestamp">
-									Created on {{ date('d M Y', strtotime($article->created_at)) }}
-									<div class="article-author">By <strong>{{ $article->author }}</strong></div>
+			<ul class="nav nav-tabs" id="myTab" role="tablist">
+				<li class="nav-item">
+					<a class="nav-link {{ (isset($_GET[config('app.favorite_article_pagination')]) || (!$_GET)) ? 'active' : '' }}" id="favorite-articles-tab" data-toggle="tab" href="#favorite-articles" role="tab" aria-controls="favorite-articles" aria-selected="true">
+						<h4>My Favorite Articles</h4>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link {{ isset($_GET[config('app.attended_meetups_pagination')]) ? 'active' : '' }}" id="attended-meetups-tab" data-toggle="tab" href="#attended-meetups" role="tab" aria-controls="attended-meetups" aria-selected="false">
+						<h4>Attended Meetups</h4>
+					</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="userTabs">
+				<br>
+				<div class="tab-pane fade {{ (isset($_GET[config('app.favorite_article_pagination')]) || (!$_GET)) ? 'show active' : '' }}" id="favorite-articles" role="tabpanel" aria-labelledby="favorite-articles-tab">
+					<div class="row">
+						@foreach ($favoritedArticles as $article)
+						<div class="col-xl-12">
+							<div data-id="{{ $article->id }}" data-url="/articles/{{ $article->id }}" class="card article-card">
+								<div class="card-body">
+									<div class="article-headline">
+										{{ $article->article_title }}
+									</div>
+									<hr>
+									<div class="article-timestamp">
+										Published on {{ date('d M Y', strtotime($article->created_at)) }}
+										<div class="article-author">By <strong>{{ $article->author }}</strong></div>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					@endforeach
-					<div class="col-xl-12">
-					{{ $favoritedArticles->links() }}
+						@endforeach
+						<div class="col-xl-12">
+						{{ $favoritedArticles->links() }}
+						</div>
 					</div>
 				</div>
+				<div class="tab-pane fade {{ isset($_GET[config('app.attended_meetups_pagination')]) ? 'show active' : '' }}" id="attended-meetups" role="tabpanel" aria-labelledby="attended-meetups-tab">
+					<div class="row">
+						@foreach ($attendedEvents as $key=>$event)
+						<div class="col-xl-12">
+							<div data-id="{{ $event->id }}" data-url="/events/view/{{ $event->id }}" class="card meetup-card">
+								<div class="card-body">
+									<div class="meetup-headline">
+										{{ $event->event_title }}
+									</div>
+									<div class="meetup-headline">
+										<p>{{ date('d M Y H:i', strtotime($event->event_start_time)) }} to {{ date('d M Y H:i', strtotime($event->event_end_time)) }}</p>
+										<p>{{ $event->event_loca_address }}</p>
+									</div>
+									<hr>
+									<div class="meetup-timestamp">
+										<div class="meetup-author">Organized By <strong>{{ $event->event_organizer }}</strong></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						@endforeach
+						<div class="col-xl-12">
+						{{ $attendedEvents->links() }}
+						</div>
+					</div>
+				</div>
+				
 			</div>
+
 		</div>
 
 	</form>

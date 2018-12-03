@@ -11,6 +11,7 @@ use App\User;
 use App\PendingPublisher;
 use App\Article;
 use App\FavoriteArticle;
+use App\EventRsvp;
 
 class UserController extends Controller
 {
@@ -23,9 +24,16 @@ class UserController extends Controller
         $query = $query->join('articles', 'articles.id', '=', 'favorite_articles.article_id');
         $query = $query->orderBy('favorite_articles.created_at', 'desc');
         $query = $query->select('articles.*');
-        $favoritedArticles = $query->paginate(3);
+        $favoritedArticles = $query->paginate(5, ['*'], config("app.favorite_article_pagination"));
         
-        return view('user.user_profile', compact('userProfile', 'favoritedArticles'));
+        $query = EventRsvp::query();
+        $query = $query->where('event_rsvps.user_id', \Auth::user()->id);
+        $query = $query->join('events', 'events.id', '=', 'event_rsvps.event_id');
+        $query = $query->orderBy('events.event_start_time', 'desc');
+        $query = $query->select('events.*');
+        $attendedEvents = $query->paginate(5, ['*'], config("app.attended_meetups_pagination"));
+
+        return view('user.user_profile', compact('userProfile', 'favoritedArticles', 'attendedEvents'));
     }
 
     /**
