@@ -18,7 +18,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categorisedArticles = Category::withCount('articles')->orderBy('category_name', 'ASC')->get();
+        $categorisedArticles = Category::withCount(['articles' => function ($query) {
+                                    $query->where('articles.verified', '=', '1')
+                                    ->where('articles.published', '=', '1');
+                                }])->orderBy('category_name', 'ASC')->get();
 
         return view('user.categories', compact('categorisedArticles'));
     }

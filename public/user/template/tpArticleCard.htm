@@ -9,7 +9,7 @@
             <button class="btn btn-icon btn-rounded article-favorite"><i class="fas fa-heart"></i></button>
             {{/if}}  
             {{/if}}  
-            <div data-id="${id}" data-url="/articles/${id}/${encoded_name}" class="card article-card">
+            <div data-id="${id}" data-url="/articles/${id}/" class="card article-card">
                 <img class="article-img" src="/user/articles/${article_img}" />
                 <div class="card-body">
                     <div class="article-headline">
@@ -17,7 +17,7 @@
                     </div>
                     <hr>
                     <div class="article-timestamp">
-                        Created on ${created_at}
+                        Published on ${created_at}
                         <div class="article-author">By <strong>${author}</strong></div>
                     </div>
                 </div>

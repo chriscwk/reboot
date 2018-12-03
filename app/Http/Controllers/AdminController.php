@@ -13,6 +13,7 @@ use App\Article;
 use App\Category;
 use App\EditedArticle;
 use App\PendingPublisher;
+use App\TempCategory;
 
 class AdminController extends Controller
 {
@@ -56,46 +57,66 @@ class AdminController extends Controller
     {   
         // Will optimize this bulk of code later
         try {
+
             if(!$rq->cat_edit) {
                 $category_exist = Category::where('category_name', $rq->cat_name)->first();
-            } else {
-                $category_exist = false;
+                if ($category_exist)
+                    return back()->with(['msg_status' => $rq->cat_name.' category already exists!<br>Please enter a different category name.']);
             }
 
-            if(!$category_exist) {
+            if($rq->cat_edit) {
+                $category = Category::find($rq->cat_id);
+            } else {
+                $category = new Category();
+            }
 
-                if($rq->cat_edit) {
-                    $category = Category::find($rq->cat_id);
+            $category->category_name = $rq->cat_name;
+            $category->category_desc = $rq->cat_desc;
+            
+            if(!$rq->cat_edit || ($rq->cat_edit && $rq->file('cat_img'))) {
+                if($rq->file('cat_img')) {
+                    $image = $rq->file('cat_img');
+                    $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
+                    $destinationPath = 'admin/categories/';
+                    $image->move($destinationPath, $input['imagename']);
+                    $category->category_img  = $input['imagename'];
                 } else {
-                    $category = new Category();
+                    $category->category_img  = 'no-img.png';
                 }
-
-                $category->category_name = $rq->cat_name;
-                $category->category_desc = $rq->cat_desc;
-
-                if(!$rq->cat_edit || ($rq->cat_edit && $rq->file('cat_img'))) {
-
-                    if($rq->file('cat_img')) {
-                        $image = $rq->file('cat_img');
-                        $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-                        $destinationPath = 'admin/categories/';
-                        $image->move($destinationPath, $input['imagename']);
-                        $category->category_img  = $input['imagename'];
-                    } else {
-                        $category->category_img  = 'no-img.png';
-                    }
-                }
-
-                $category->save();
-
-                if($rq->cat_edit) {
-                    return redirect()->route('admin-category')->with(['msg_class' => 'success', 'msg_status' => 'Successfully edited '.$rq->cat_name.' category.']);
-                }
-
-                return redirect()->route('admin-category')->with(['msg_class' => 'success', 'msg_status' => 'Successfully added '.$rq->cat_name.' category.']);
-            } else {
-                return back()->with(['msg_status' => $rq->cat_name.' category already exists!<br>Please enter a different category name.']);
             }
+
+            $category->save();
+
+            /**
+             * if category is requested
+             * if to set article to new category id & approve it
+             */
+            if ($rq->is_cat_req) 
+            {
+                $currentNewArticle = Article::find($rq->article_id);
+                $currentNewArticle->category_id = $category->id;
+                if ($rq->chk_set_approve)
+                {
+                    $currentNewArticle->verified = 1;
+                    $currentNewArticle->published = 1;
+                }
+                $currentNewArticle->save();
+
+                $tempCategory = TempCategory::where('article_id', $rq->article_id)->first();
+                $tempCategory->status = 1;
+                $tempCategory->save();
+
+                if ($rq->chk_set_approve)
+                    return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully added new category and approved the article.']);
+                else
+                    return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully added new category.']);
+            }
+
+            if($rq->cat_edit)
+                return redirect()->route('admin-category')->with(['msg_class' => 'success', 'msg_status' => 'Successfully edited '.$rq->cat_name.' category.']);
+            else
+                return redirect()->route('admin-category')->with(['msg_class' => 'success', 'msg_status' => 'Successfully added '.$rq->cat_name.' category.']);
+
         } catch (Exception $e) {
             return redirect()->route('admin-category')->with(['msg_class' => 'error', 'msg_status' => 'An unexpected error has occured. Please try again.']);
         }
@@ -169,8 +190,19 @@ class AdminController extends Controller
     // Articles Function
     public function articles()
     {
-        $articles = Article::all();
-        return view('admin.articles', compact('articles'));
+        $query = Article::query();
+        $query = $query->leftJoin('temp_categories', function($join) {
+            $join
+                ->on('temp_categories.article_id', '=', 'articles.id')
+                ->where('temp_categories.status', '=', "0") //0 indicates to be approve by admin
+                ->where('articles.category_id', '=', "0"); //0 indicates to be approve by admin
+        });
+        $query = $query->select('articles.*', 'temp_categories.temp_category_name');
+
+        $articles = $query->get();
+        $categories = Category::orderBy('category_name', 'asc')->get();
+
+        return view('admin.articles', compact('articles', 'categories'));
     }
 
     public function edited_articles()
@@ -198,13 +230,24 @@ class AdminController extends Controller
         return view('admin.view_article', compact('article'));
     }
 
-    public function approve_article($id)
+    public function approve_article(Request $rq)
     {
         try {
-            $article = Article::find($id);
+            $article_id = $rq->selected_article_id;
+            $category_id = $rq->selected_category_id;
+
+            $article = Article::find($article_id);
             $article->verified = 1;
             $article->published = 1;
+            $article->category_id = $category_id;
             $article->save();
+
+            $tempCategory = TempCategory::where('article_id', $article_id)->first();
+            if ($tempCategory)
+            {
+                $tempCategory->status = 1;
+                $tempCategory->save();
+            }
 
             return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully approved article.']);
         } catch (Exception $e) {

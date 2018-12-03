@@ -13,6 +13,7 @@ use App\EditedArticle;
 use App\FavoriteArticle;
 use App\Comment;
 use App\ArticlesRatings;
+use App\TempCategory;
 
 class ArticleController extends Controller
 {
@@ -35,7 +36,7 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = Category::orderBy('category_name', 'asc')->get();
 
         $backgrounds = ['bg1.jpg', 'bg2.jpg', 'bg3.jpg', 'bg4.jpg'];
         $index = mt_rand(0,3);
@@ -57,13 +58,22 @@ class ArticleController extends Controller
     public function store(Request $rq)
     {
         try {
+
+            $isOtherCategory = $rq->cat_id == null && $rq->other_category != null;
+
             $article = new Article;
             $article->user_id       = \Auth::user()->id;
-            $article->category_id   = $rq->cat_id;
             $article->article_title = $rq->article_headline;
             $article->article_text  = $rq->article_html;
             $article->article_link  = $rq->article_link;
             $article->author        = \Auth::user()->first_name.' '.\Auth::user()->last_name;
+
+            /**
+             * 1. Put other categories into '0' id
+             * 2. Insert into temp_categories
+             * 3. Allow admins to classify them properly / approve the requested category
+             */
+            $article->category_id   = $isOtherCategory ? 0 : $rq->cat_id;
 
             if($rq->file('article_img')) {
                 $image = $rq->file('article_img');
@@ -74,8 +84,17 @@ class ArticleController extends Controller
             } else {
                 $article->article_img  = $rq->sample_image;
             }
-
             $article->save();
+
+            if ($isOtherCategory) 
+            {
+                $tempCategory = new TempCategory;
+                $tempCategory->article_id           = $article->id;
+                $tempCategory->user_id              = \Auth::user()->id;
+                $tempCategory->status               = 0; //0 indicates category has not been looked into 
+                $tempCategory->temp_category_name   = $rq->other_category;
+                $tempCategory->save();
+            }
 
             return redirect()->route('articles')->with(['msg_class' => 'success', 'msg_success' => 'You have successfully submitted your article!<br>Please wait for it to be verified by our hardworking admins.']);
         } catch (Exception $e) {
@@ -119,8 +138,10 @@ class ArticleController extends Controller
     {
         try {
             $article = Article::find($rq->article_id);
-            $article->category_id   = $rq->cat_id;
-            $article->article_title = $rq->article_headline;
+            //fix article to certain category after being approved
+            //disallow users from changing the category
+            //$article->category_id     = $rq->cat_id; 
+            $article->article_title     = $rq->article_headline;
             
             if($rq->publish_id) {
                 $article->published     = $rq->publish_id;
@@ -235,7 +256,8 @@ class ArticleController extends Controller
         }
     }
 
-    public function getArticleDetails($articleId, $articleName)
+    // public function getArticleDetails($articleId, $articleName)
+    public function getArticleDetails($articleId)
     {
         try
         {
@@ -246,8 +268,10 @@ class ArticleController extends Controller
 
             if ($articleId != null && $articleId != "")
                 $query = $query->where('articles.id', $articleId);
-            if ($articleName != null && $articleName != "")
-                $query = $query->where('article_title', urldecode(str_replace('-', '+', $articleName)));
+
+            //removed articlename for the sake of easy retrieval
+            // if ($articleName != null && $articleName != "")
+            //     $query = $query->where('article_title', urldecode(str_replace('-', '+', $articleName)));
 
             $query = $query->leftJoin('favorite_articles', function($join) {
                 $join

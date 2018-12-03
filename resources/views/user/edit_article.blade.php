@@ -40,7 +40,7 @@
 			<div class="col-xl-3">
 				<div class="form-group">
 				    <label>Category</label>
-				    <select class="form-control" name="cat_id">
+				    <select class="form-control" name="cat_id" disabled>
 				      	@foreach($categories AS $category)
 				      	<option value="{{ $category->id }}" {{ (($article->category_id == $category->id) ? 'selected' : '') }}>{{ $category->category_name }}</option>
 				      	@endforeach

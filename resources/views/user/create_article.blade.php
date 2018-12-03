@@ -14,6 +14,9 @@
 		#content-previewer{
 			border: 2px solid black;
 		}
+		.category-table {
+			width: 100%;
+		}
 	</style>
 @endsection
 
@@ -45,12 +48,33 @@
 			</div>
 			<div class="col-xl-6">
 				<div class="form-group">
-				    <label>Category</label>
-				    <select class="form-control" name="cat_id">
-				      	@foreach($categories AS $category)
-				      	<option value="{{ $category->id }}">{{ $category->category_name }}</option>
-				      	@endforeach
-				    </select>
+					<table class="category-table">
+						<tr>
+							<td colspan=2><label>Category</label></td>
+						</tr>
+						<tr>
+							<td><input type="radio" name="rb_category" value="predefined_cat" class="rb_category" checked></td>
+							<td>
+								<select class="form-control" name="cat_id" id="article_category">
+									@foreach($categories AS $category)
+									<option value="{{ $category->id }}">{{ $category->category_name }}</option>
+									@endforeach
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td colspan=2><hr></td>
+						</tr>
+						<tr>
+							<td colspan=2><label>Don't see the category you want?</label></td>
+						</tr>
+						<tr>
+							<td><input type="radio" name="rb_category" value="other_cat" class="rb_category"></td>
+							<td>
+								<input id="other_category" type="text" class="form-control" name="other_category" placeholder="Enter Your Desired Category" readonly>
+							</td>
+						</tr>
+					</table>
 				</div>
 			</div>
 		</div>
@@ -108,6 +132,19 @@
 
 <script>
 	$(function() {
+
+		$( 'input[name="rb_category"]' ).on( "click", function() {
+			if ($( 'input[name="rb_category"]:checked' ).val() == "predefined_cat") {
+				$("#article_category").removeAttr('disabled');
+				$("#other_category").prop('readonly', 'true');
+				$("#other_category").val("");
+			}
+			else {
+				$("#article_category").prop('disabled', 'disabled');
+				$("#other_category").removeAttr('readonly');
+			}
+		});
+
 		$('.fetch-link-preview').on('click', function (e) {
 			var site_url = $('#articleLink').val();
 			$(".custom-spinner").show();
@@ -138,6 +175,7 @@
 			var headline = $('#headline').val().trim();
 			var link 	 = $('#articleLink').val().trim();
 			var txtArea  = $('#articleHtml').val();
+			var otherCat = $('#other_category').val();
 
 			if(headline == '' || headline == null) {
 				swal({
@@ -154,6 +192,12 @@
 			} else if(link != '' && txtArea != '') {
 				swal({
 					text: "You may only choose between sharing a link to an article or creating your own article.",
+					type: "error",
+					confirmButtonText: "Ok"
+				});
+			} else if ($( 'input[name="rb_category"]:checked' ).val() == "other_cat" && otherCat == "") {
+				swal({
+					text: "As you have selected the Others category, please ensure you have put in your desired category.",
 					type: "error",
 					confirmButtonText: "Ok"
 				});

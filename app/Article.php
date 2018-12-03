@@ -22,4 +22,14 @@ class Article extends Model
     {
         return \Auth::check();
     }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Category');
+    }
+
+    public function tempCategory()
+    {
+        return $this->belongsTo('App\TempCategory');
+    }
 }
