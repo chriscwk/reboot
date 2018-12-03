@@ -109,6 +109,7 @@
 
 		$('input[name="event_time"]').daterangepicker({
 			timePicker: true,
+			minDate: moment(),
 			locale: { format: 'DD/MM/YYYY HH:mm' }
 		});
 		$('input[name="event_time"]').val("");

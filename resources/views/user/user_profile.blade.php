@@ -137,7 +137,9 @@
 			return false;
 		});
 		$('input[name="user_birth_date"]').datepicker({
-            format: 'dd/mm/yyyy'
+            format: 'dd/mm/yyyy',
+			endDate: '+0d',
+        	autoclose: true
         });
 		$( ".only-text" ).keypress(function(e) {
 			var key = e.keyCode;

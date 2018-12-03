@@ -142,7 +142,9 @@
 				return false;
 			});
 			$('input[name="user_birth"]').datepicker({
-				format: 'dd/mm/yyyy'
+				format: 'dd/mm/yyyy',
+				endDate: '+0d',
+        		autoclose: true
 			});
 		
 			$('.btn-signup').on('click', function() {

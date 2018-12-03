@@ -24,7 +24,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::where('user_id', \Auth::user()->id)->get();
+        $articles = Article::where('user_id', \Auth::user()->id)->orderBy('created_at', 'DESC')->get();
 
         return view('user.articles', compact('articles'));
     }
