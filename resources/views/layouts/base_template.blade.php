@@ -25,7 +25,7 @@
 		<div class="signin-container">
 			<div class="signin-header">SIGN IN<span id="close_signin" class="pull-right"><i class="fas fa-times"></i></span></div>
 			<div class="signin-body">
-				<a href="javascript:;" class="btn btn-facebook w-100">Sign In with Facebook</a>
+				<a href="javascript:;" class="btn btn-facebook w-100" style="display: none;">Sign In with Facebook</a>
 				<hr>
 				<form method="POST" action="{{ action('NormalController@sign_in') }}">
 					@csrf
@@ -56,7 +56,7 @@
 		<div class="signup-container">
 			<div class="signup-header">SIGN UP<span id="close_signup" class="pull-right"><i class="fas fa-times"></i></span></div>
 			<div class="signup-body">
-				<a href="javascript:;" class="btn btn-facebook w-100">Sign Up with Facebook</a>
+				<a href="javascript:;" class="btn btn-facebook w-100" style="display: none;">Sign Up with Facebook</a>
 				<hr>
 				<form id="signup_form" method="POST" action="{{ action('NormalController@sign_up') }}">
 					@csrf
