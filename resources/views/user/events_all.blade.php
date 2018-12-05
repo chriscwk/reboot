@@ -52,9 +52,14 @@
 						var dataArray = data.event;
 						for (var i = 0; i < dataArray.length; i++){
 							var mapId = "event-map-" + (i + 1);
-							var lat = parseFloat(dataArray[i].event_lat);
-							var long = parseFloat(dataArray[i].event_long);
-							plot_map(mapId, lat, long);
+							if (dataArray[i].event_lat != "" && dataArray[i].event_long != "") {
+								var lat = parseFloat(dataArray[i].event_lat);
+								var long = parseFloat(dataArray[i].event_long);
+								plot_map(mapId, lat, long);
+							}
+							else {
+								$("#" + mapId).append('<div class="text-center"><label class="text-danger map-not-available">Map preview is not available</label></div>');
+							}
 						};
 					});
 					

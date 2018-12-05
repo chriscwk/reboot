@@ -115,12 +115,19 @@ class EventController extends Controller
     public function destroy($id)
     {
         try {
-            $event = Event::find($id);
-            $event->delete();
 
-            return back()->with(['msg_class' => 'success', 'msg_success' => 'Successfully removed event.']);
+            $event = Event::find($id);
+            
+            if ($event->rsvps_count == 0)
+            {
+                $event->delete();
+                return back()->with(['msg_class' => 'success', 'msg_success' => 'Successfully removed event.']);
+            }
+            else
+                return back()->with(['msg_class' => 'error', 'msg_fail' => 'There are attendees who are interested in the event.']);
+            
         } catch (Exception $e) {
-            return back()->with(['msg_class' => 'error', 'msg_error' => 'Failed to remove event. Please try again.']);
+            return back()->with(['msg_class' => 'error', 'msg_fail' => 'Failed to remove event. Please try again.']);
         }
     }
 

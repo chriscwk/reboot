@@ -23,11 +23,11 @@
 										<tr>
 											<th>Article Title</th>
 											<th>Author</th>
-											<th width="150px">Verification</th>
-											<th width="150px">Status</th>
+											<th width="120px">Verification</th>
+											<th width="120px">Status</th>
 											<th>Created On</th>
 											<th>Article Content</th>
-											<th>Category</th>
+											<th width="210px">Category</th>
 											<th width="195px">Options</th>
 										</tr>
 									</thead>

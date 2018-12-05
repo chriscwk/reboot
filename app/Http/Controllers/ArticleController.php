@@ -226,6 +226,7 @@ class ArticleController extends Controller
             $rowsPerQuery = config("app.home_articles_per_page");
             $current = $rq->current;
             $categoryId = $rq->categoryId;
+            $month = $rq->month;
     
             $query = Article::query();
             $query = $query->where('verified', 1);
@@ -233,6 +234,8 @@ class ArticleController extends Controller
 
             if ($categoryId != null && $categoryId != "")
                 $query = $query->where('category_id', $categoryId);
+            if ($month != null && $month != "")
+                $query = $query->whereRaw("CONCAT(YEAR(articles.created_at), MONTH(articles.created_at)) = '" . $month . "'");
 
             $query = $query->leftJoin('favorite_articles', function($join) {
                 $join
@@ -245,7 +248,7 @@ class ArticleController extends Controller
             $query = $query->select('articles.*', 'favorite_articles.user_id');
 
             $approvedArticles = $query->get();
-
+            $query->toSql();
             $approvedArticles = $approvedArticles->toArray();
 
             return $approvedArticles;

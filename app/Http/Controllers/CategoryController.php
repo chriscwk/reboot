@@ -40,7 +40,8 @@ class CategoryController extends Controller
     public function getCategoryDetails($categoryId)
     {
         $category = Category::findOrFail($categoryId);
+        $monthList = $this->getMonthList($categoryId);
         
-        return view('user.categorised_articles', compact('category'));
+        return view('user.categorised_articles', compact('category', 'monthList'));
     }
 }

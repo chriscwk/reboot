@@ -29,7 +29,7 @@
 		<div class="row">
 			<div class="col-xl-12">
 				<div class="map-preview" id="event-map">
-                    <div class="text-center"><label id="map-not-available" class="text-danger">LOCATION NOT FOUND</label></div>
+                    <div class="text-center"><label class="text-danger map-not-available">LOCATION NOT FOUND</label></div>
                     <div class="text-center custom-spinner align-middle">
                         <i class="fa fa-spin fa-spinner fa-10x"></i>
                         <div class="custom-spinner-text">loading...</div>
@@ -123,7 +123,7 @@
         $(".custom-spinner").hide();
 		$('#event_loca_address').focusout(function () {
             if ($(this).val() != "") {
-                $("#map-not-available").hide();
+                $(".map-not-available").hide();
                 $(".custom-spinner").show();
                 destroyMap();
 
@@ -133,17 +133,15 @@
                     url: '/events/getLatLong',
                     data: { 'address' : $(this).val() },
                     success: function(data) {
-                        if (data == "")
-                        {
-                            $("#map-not-available").show();
+                        if (data == "") {
+                            $(".map-not-available").show();
                             $(".custom-spinner").hide();
                         }
-                        else
-                        {
+                        else {
                             var split = data.split(',');
                             plot_map('event-map', parseFloat(split[0]), parseFloat(split[1]));
                             
-                            $("#map-not-available").hide();
+                            $(".map-not-available").hide();
                             $(".custom-spinner").hide();
                         }
                     },
@@ -154,7 +152,7 @@
 			    });
             }
             else {
-                $("#map-not-available").show();
+                $(".map-not-available").show();
                 destroyMap();
             }
         });

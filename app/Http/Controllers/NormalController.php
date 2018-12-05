@@ -14,7 +14,8 @@ class NormalController extends Controller
 {
     public function index()
     {
-        return view('user.index');
+        $monthList = $this->getMonthList(null);
+        return view('user.index', compact('monthList'));
     }
 
     public function sign_in(Request $rq) 

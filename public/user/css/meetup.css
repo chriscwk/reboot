@@ -116,3 +116,7 @@
 .attendee-item p {
 	display: inline-block;
 }
+
+.map-not-available {
+	padding-top: 50px;
+}

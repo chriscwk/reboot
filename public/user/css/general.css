@@ -86,3 +86,15 @@ body {
 	width: 100%;
 	margin-bottom: 20px;
 }
+
+button.month-selector {
+	cursor: pointer;
+}
+
+button.month-selector:hover {
+	background-color: #F0F0F0;
+}
+
+button.month-selector.active:hover {
+	background-color: #007bff; /*hack it*/
+}
