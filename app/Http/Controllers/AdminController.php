@@ -133,12 +133,16 @@ class AdminController extends Controller
     {
         try {
             $category = Category::find($id);
-
             $name = $category->category_name;
 
-            $category->delete();
-
-            return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully removed '.$name.' category.']);
+            if ($category->articles->count() > 0)
+                return back()->with(['msg_class' => 'error', 'msg_status' => $name.' is not removable.<br>There are articles associated to it.']);
+            else 
+            {
+                $category->delete();
+                return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully removed '.$name.' category.']);
+            }
+            
         } catch (Exception $e) {
             return back()->with(['msg_class' => 'error', 'msg_status' => 'Failed to remove category. Please try again.']);
         }

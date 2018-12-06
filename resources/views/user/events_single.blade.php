@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/user/css/single_article.css">
 	<link rel="stylesheet" href="/user/css/meetup.css">
     <style>
-		#content-previewer{
+		#event-map {
 			border: 2px solid black;
 		}
 	</style>
@@ -79,9 +79,14 @@
 	$(function() {
         destroyMap();
 
-        var lat = parseFloat('{{ $event->event_lat }}');
-        var long = parseFloat('{{ $event->event_long }}');
-        plot_map('event-map', lat, long);
+        if ('{{ $event->event_lat }}' != "" && '{{ $event->event_long }}' != "") {
+            var lat = parseFloat('{{ $event->event_lat }}');
+            var long = parseFloat('{{ $event->event_long }}');
+            plot_map('event-map', lat, long);
+        }
+        else {
+            $("#event-map").append('<div class="text-center"><label class="text-danger map-not-available">Map preview is not available</label></div>');
+        }
 	});
 </script>
 @endsection
