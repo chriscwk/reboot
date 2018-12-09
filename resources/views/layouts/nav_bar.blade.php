@@ -7,7 +7,7 @@
 			<i></i>
 		</label>
 		<div class="logo">
-			<a href="{{ action('NormalController@index') }}">REBOOT</a>
+			<a href="{{ action('NormalController@index') }}" class="color-primary">REBOOT</a>
 		</div>
 		<div class="nav-wrapper">
 			<ul>

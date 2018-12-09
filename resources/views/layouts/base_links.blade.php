@@ -1,5 +1,6 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css?family=Open+Sans|Poppins" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
 
 <!-- Font Awesome v5.4.1 -->
 <link rel="stylesheet" 

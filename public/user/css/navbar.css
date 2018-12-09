@@ -30,10 +30,12 @@ nav {
 
 .logo {
 	/*text-align: center;*/
+	font-family: 'Permanent Marker', cursive;
 	padding: 15px 0;
+	line-height: 3.25vh;
 }
 
-.logo:after {
+/*.logo:after {
 	content: '';
     height: 2px;
     display: block;
@@ -42,7 +44,16 @@ nav {
 
     animation: animateLine 3s;
 	animation-fill-mode: both;
-}
+}*/
+
+/*@keyframes animateLine {
+    from {
+        width: 0;
+    }
+    to {
+        width: 73px;
+    }
+}*/
 
 .nav-wrapper {
 	padding: 15px 0;
@@ -50,23 +61,15 @@ nav {
 	line-height: 1rem;
 }
 
-@keyframes animateLine {
-    from {
-        width: 0;
-    }
-    to {
-        width: 73px;
-    }
+.logo a {
+	/*font-weight: 700;*/
+	font-size: 25px;
+    letter-spacing: 2px;
+	text-decoration: none;
 }
 
-.logo a {
-	color: #000;
-	/*color: #f2f2f2;*/
-	text-transform: uppercase;
-	font-weight: 700;
-	font-size: 18px;
-	letter-spacing: 1px;
-	text-decoration: none;
+.logo a:hover {
+	color: #6600ff;
 }
 
 nav ul {
@@ -107,7 +110,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-	color: #000;
+	color: #6600ff;
 	text-decoration: none;
 }
 

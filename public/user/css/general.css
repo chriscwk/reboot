@@ -57,17 +57,6 @@ body {
 	margin-top: 20px;
 }
 
-/* Hides Scrollbar */
-::-webkit-scrollbar {
-	display: none;
-}
-
-@media screen and (max-width: 864px) {
-	.sd-container div {
-		display: none;
-	}
-}
-
 .custom-spinner {
 	margin-top: 30px;
 }
@@ -97,4 +86,19 @@ button.month-selector:hover {
 
 button.month-selector.active:hover {
 	background-color: #007bff; /*hack it*/
+}
+
+.color-primary {
+	color: #6600ff;
+}
+
+/* Hides Scrollbar */
+::-webkit-scrollbar {
+	display: none;
+}
+
+@media screen and (max-width: 864px) {
+	.sd-container div {
+		display: none;
+	}
 }
