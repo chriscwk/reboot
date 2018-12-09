@@ -17,29 +17,15 @@ use App\TempCategory;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:admin');
+    }
+
     public function index()
     {
     	return view('admin.index');
     }
-
-
-    // Sign In Functions
-    public function sign_in_view()
-    {
-    	return view('admin.signin');
-    }
-
-    public function sign_in(Request $rq)
-    {   
-        $admin = Admin::where('username', $rq->username)->where('password', $rq->password)->first();
-        
-        if($admin) {
-            return redirect()->route('admin-dashboard');
-        } else {
-            return back()->with(['msg_status' => 'Wrong username/password combination!<br>Please try again.', 'msg_class' => 'error']);
-        }
-    }
-
 
     // Categories Functions
     public function categories()
@@ -77,7 +63,7 @@ class AdminController extends Controller
                 if($rq->file('cat_img')) {
                     $image = $rq->file('cat_img');
                     $input['imagename'] = time().'.'.$image->getClientOriginalExtension();
-                    $destinationPath = 'admin/categories/';
+                    $destinationPath = 'admins/categories/';
                     $image->move($destinationPath, $input['imagename']);
                     $category->category_img  = $input['imagename'];
                 } else {
@@ -168,8 +154,18 @@ class AdminController extends Controller
             $pending->pending_status = 1;
             $pending->save();
 
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('emails.approve_publisher', ['name' => $name], function($message) use($user, $name)
+            {
+                $message
+                    ->from('reboot.ces3033@gmail.com', 'Reboot Admin')
+                    ->to($user->email, $name)
+                    ->subject('Publisher Status');
+            });
+
             return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully approved <span class="fw-600">'.$name.'</span> as a publisher.']);
         } catch (Exception $e) {
+            dd($e);
             return back()->with(['msg_class' => 'error', 'msg_status' => 'Failed to approve '.$name.' as a publisher.<br>Please try again.']);
         }
     }
@@ -184,8 +180,18 @@ class AdminController extends Controller
             $pending->pending_status = -1;
             $pending->save();
 
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('emails.reject_publisher', ['name' => $name], function($message) use($user, $name)
+            {
+                $message
+                    ->from('reboot.ces3033@gmail.com', 'Reboot Admin')
+                    ->to($user->email, $name)
+                    ->subject('Publisher Status');
+            });
+
             return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully rejected <span class="fw-600">'.$name.'</span> as a publisher.']);
         } catch (Exception $e) {
+            dd($e);
             return back()->with(['msg_class' => 'error', 'msg_status' => 'Failed to reject '.$name.' as a publisher.<br>Please try again.']);
         }
     }
@@ -253,6 +259,18 @@ class AdminController extends Controller
                 $tempCategory->save();
             }
 
+            $user = User::find($article->user_id);
+            $name = $user->first_name." ".$user->last_name;
+
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('emails.approve_article', ['name' => $name, 'title' => $article->article_title], function($message) use($user, $name)
+            {
+                $message
+                    ->from('reboot.ces3033@gmail.com', 'Reboot Admin')
+                    ->to($user->email, $name)
+                    ->subject('Article Status');
+            });
+
             return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully approved article.']);
         } catch (Exception $e) {
             return back()->with(['msg_class' => 'error', 'msg_status' => 'Failed to approve article.<br>Please try again.']);
@@ -265,6 +283,18 @@ class AdminController extends Controller
             $article = Article::find($id);
             $article->verified = -1;
             $article->save();
+
+            $user = User::find($article->user_id);
+            $name = $user->first_name." ".$user->last_name;
+
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('emails.reject_article', ['name' => $name, 'title' => $article->article_title], function($message) use($user, $name)
+            {
+                $message
+                    ->from('reboot.ces3033@gmail.com', 'Reboot Admin')
+                    ->to($user->email, $name)
+                    ->subject('Article Status');
+            });
 
             return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully rejected article.']);
         } catch (Exception $e) {
@@ -284,6 +314,18 @@ class AdminController extends Controller
             $article->article_link  = $edited->article_link;
             $article->save();
 
+            $user = User::find($article->user_id);
+            $name = $user->first_name." ".$user->last_name;
+
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('emails.approve_article', ['name' => $name, 'title' => $article->article_title], function($message) use($user, $name)
+            {
+                $message
+                    ->from('reboot.ces3033@gmail.com', 'Reboot Admin')
+                    ->to($user->email, $name)
+                    ->subject('Article Status');
+            });
+
             return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully approved edited article.']);
         } catch (Exception $e) {
             return back()->with(['msg_class' => 'error', 'msg_status' => 'Failed to approve edited article.<br>Please try again.']);
@@ -297,9 +339,33 @@ class AdminController extends Controller
             $edited->verified = -1;
             $edited->save();
 
+            $article = Article::find($edited->article_id);
+
+            $user = User::find($article->user_id);
+            $name = $user->first_name." ".$user->last_name;
+
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('emails.reject_article', ['name' => $name, 'title' => $article->article_title], function($message) use($user, $name)
+            {
+                $message
+                    ->from('reboot.ces3033@gmail.com', 'Reboot Admin')
+                    ->to($user->email, $name)
+                    ->subject('Article Status');
+            });
+
             return back()->with(['msg_class' => 'success', 'msg_status' => 'Successfully rejected edited article.']);
         } catch (Exception $e) {
             return back()->with(['msg_class' => 'error', 'msg_status' => 'Failed to reject edited article.<br>Please try again.']);
+        }
+    }
+
+    public function admin_sign_out()
+    {
+        try {
+            Auth::logout();
+            return redirect()->route('admin')->with(['msg_success' => 'Successfully signed out!<br>See you again next time.', 'msg_class' => 'success']);
+        } catch (Exception $e) {
+            return back()->with(['msg_fail' => 'Failed to sign out!<br>Please try again.', 'msg_class' => 'error']);
         }
     }
 }

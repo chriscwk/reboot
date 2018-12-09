@@ -23,7 +23,7 @@
 					<div class="col-xl-4">
 						<button class="btn btn-danger btn-icon btn-rounded category-delete"><i class="mdi mdi mdi-delete"></i></button>
 						<div data-id="{{ $category->id }}" class="card category-card m-b-20">
-							<img class="category-img" src="/admin/categories/{{ $category->category_img }}" />
+							<img class="category-img" src="/admins/categories/{{ $category->category_img }}" />
 							<div class="card-body">
 								<div class="category-title">{{ $category->category_name }}</div>
 								<div class="category-desc">{{ $category->category_desc }}</div>
@@ -72,7 +72,7 @@
 				if (result.value) {
 				   var id = $(this).next().attr('data-id');
 				   
-				   document.location.href = '/administrator/categories/delete/' + id;
+				   document.location.href = '/admin/categories/delete/' + id;
 				}
 			});
 		});

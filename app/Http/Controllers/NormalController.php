@@ -66,6 +66,24 @@ class NormalController extends Controller
         }
     }
 
+    // Sign In Functions
+    public function admin_sign_in_view()
+    {
+        return view('admin.signin');
+    }
+
+    public function admin_sign_in(Request $rq)
+    {   
+        $credentials = $rq->only('username', 'password');
+        
+        if (Auth::guard('admin')->attempt(['username' => $credentials['username'], 'password' => $credentials['password']])) {
+            // Authentication passed...
+            return redirect()->route('admin-dashboard');
+        } else {
+            return back()->with(['msg_status' => 'Wrong username/password combination!<br>Please try again.', 'msg_class' => 'error']);
+        }
+    }
+
     public function redirectToProvider()
     {
         // 
@@ -74,5 +92,46 @@ class NormalController extends Controller
     public function handleProviderCallback()
     {
         //
+    }
+
+    public function forget_pass_email($email)
+    {
+        try {
+            $user = User::where('email', $email)->first();
+
+            $name = $user->first_name." ".$user->last_name;
+
+            $beautymail = app()->make(\Snowfire\Beautymail\Beautymail::class);
+            $beautymail->send('emails.forget_pass', ['name' => $name, 'id' => $user->id], function($message) use($user, $name)
+            {
+                $message
+                    ->from('reboot.ces3033@gmail.com', 'Reboot Admin')
+                    ->to($user->email, $name)
+                    ->subject('Password Recovery');
+            });
+
+            return back()->with(['msg_success' => 'Successfully sent password forget email! Please check your inbox.', 'msg_class' => 'success']);
+        } catch(Exception $e) {
+            return back()->with(['msg_fail' => 'Failed to send forget password email.', 'msg_class' => 'error']);
+        }
+    }
+
+    public function reset_pass($id)
+    {
+        $userID = $id;
+        return view('user.reset_pass', compact('userID'));
+    }
+
+    public function change_pass(Request $rq)
+    {
+        try {
+            $user = User::find($rq->userID);
+            $user->password = bcrypt($rq->password);
+            $user->save();
+
+            return redirect('/')->with(['msg_success' => 'Successfully reset password! Please login again.', 'msg_class' => 'success']);
+        } catch(Exception $e) {
+            return back()->with(['msg_fail' => 'Failed to reset password. Please try again.', 'msg_class' => 'error']);
+        }
     }
 }

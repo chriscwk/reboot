@@ -20,7 +20,7 @@
 		          	<div class="col-lg-4 mx-auto">
 			            <div class="auth-form-light text-left p-5">
 			              	<h4>REBOOT ADMIN</h4>
-			              	<form method="POST" action="{{ action('AdminController@sign_in') }}" class="pt-3">
+			              	<form method="POST" action="{{ action('NormalController@admin_sign_in') }}" class="pt-3">
 								@csrf
 			                	<div class="form-group">
 			                  		<input type="username" name="username" class="form-control" placeholder="Username">

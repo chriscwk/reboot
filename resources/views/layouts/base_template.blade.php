@@ -25,8 +25,8 @@
 		<div class="signin-container">
 			<div class="signin-header">SIGN IN<span id="close_signin" class="pull-right"><i class="fas fa-times"></i></span></div>
 			<div class="signin-body">
-				<a href="javascript:;" class="btn btn-facebook w-100" style="display: none;">Sign In with Facebook</a>
-				<hr>
+				{{-- <a href="javascript:;" class="btn btn-facebook w-100" style="display: none;">Sign In with Facebook</a>
+				<hr> --}}
 				<form method="POST" action="{{ action('NormalController@sign_in') }}">
 					@csrf
 				
@@ -35,6 +35,7 @@
 							<div class="form-group">
 								<label>Email</label>
 								<input type="text" class="form-control" name="email" placeholder="Enter Email" required />
+								<span class="text-danger"></span>
 							</div>
 						</div>
 						<div class="col-xl-12">
@@ -42,6 +43,9 @@
 								<label>Password</label>
 								<input type="password" class="form-control" name="password" placeholder="Enter Password" required />
 							</div>
+						</div>
+						<div class="col-xl-12">
+							<a href="javascript:;" id="forget_pass">Forgot my password</a>
 						</div>
 						<div class="col-xl-12 text-center">
 							<button type="submit" class="btn btn-outline-secondary m-t-20">SIGN IN</button>
@@ -205,6 +209,19 @@
 				if(valid_signup) {
 					$(this).prop('type', 'submit');
 					$(this).trigger('click');
+				}
+			});
+
+			$('#forget_pass').click(function() {
+				var emailElem = $('input[name="email"]');
+
+				if(emailElem.val() != "") {
+					emailElem.css('border-color', '#ced4da');
+					emailElem.next().html('');
+					document.location.href = '/password/forget/' + emailElem.val();
+				} else {
+					emailElem.css('border-color', '#ff0000');
+					emailElem.next().html('Email must not be empty.');
 				}
 			});
 

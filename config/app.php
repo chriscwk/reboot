@@ -163,6 +163,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
 
         /*
          * Application Service Providers...

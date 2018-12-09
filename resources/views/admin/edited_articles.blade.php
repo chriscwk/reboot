@@ -68,12 +68,12 @@
 	$(function() {
 		$('.btn-approve').on('click', function(e) {
 		   var id = $(this).parents('tr').attr('data-id');
-		   document.location.href = '/administrator/articles/approve/edited/' + id;
+		   document.location.href = '/admin/articles/approve/edited/' + id;
 		});
 
 		$('.btn-reject').on('click', function(e) {
 		   var id = $(this).parents('tr').attr('data-id');
-		   document.location.href = '/administrator/articles/reject/edited/' + id;
+		   document.location.href = '/admin/articles/reject/edited/' + id;
 		});
 
 	    @if(session('msg_status'))

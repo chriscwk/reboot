@@ -23,7 +23,10 @@
                     <div class="singl-article-post">
                         <figure>
                             <div class="singl-article-title" >
-                                <h3>{{ $articlePost->article_title }}</h3>
+                                <h3>
+                                    {{ $articlePost->article_title }}
+                                    <a href="javascript:;" class="btn-fb-share" target="popup" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=http://reboot.epizy.com/articles/{{ $articlePost->id }}','popup','width=600,height=600,scrollbars=no,resizable=no'); return false;">Share on FB</a>
+                                </h3>
                             </div>
                             <div class="singl-article-status-bar">
                                 <span>

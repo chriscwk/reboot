@@ -270,3 +270,20 @@
     margin-right: 10px;
     min-width: 20px;
 }
+
+.btn-fb-share {
+    all: unset;
+    position: absolute;
+    right: 18px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background: #4267B2;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+}
+
+.btn-fb-share:hover {
+    text-decoration: none;
+    color: white;
+}

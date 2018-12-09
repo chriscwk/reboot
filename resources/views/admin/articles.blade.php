@@ -139,7 +139,7 @@
 			var currentRow = $(this).parents('tr');
 			var id = currentRow.attr('data-id');
 			var selected_category_id = currentRow.find("select").find(":selected").val();
-			//document.location.href = '/administrator/articles/approve/' + id;
+			//document.location.href = '/admin/articles/approve/' + id;
 			$("input[name='selected_article_id']").val(id);
 			$("input[name='selected_category_id']").val(selected_category_id);
 			$("#list_articles_form").submit();
@@ -148,7 +148,7 @@
 		$('.btn-reject').on('click', function(e) {
 			e.preventDefault();
 			var id = $(this).parents('tr').attr('data-id');
-			document.location.href = '/administrator/articles/reject/' + id;
+			document.location.href = '/admin/articles/reject/' + id;
 		});
 
 		$('.btn-approve-category').on('click', function(e) {

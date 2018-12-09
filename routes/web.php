@@ -51,28 +51,36 @@ Route::get('login/facebook/callback', 'LoginController@handleProviderCallback');
 Route::get('/user-profile', 'UserController@index')->name('userprofile');
 Route::post('/user-profile/update', 'UserController@update');
 
+Route::get('/password/forget/{email}', 'NormalController@forget_pass_email');
+Route::get('/password/reset/{id}', 'NormalController@reset_pass');
+Route::post('/password/reset/store', 'NormalController@change_pass');
+
 // Administrator Routes
-Route::get('/administrator', 'AdminController@sign_in_view');
-Route::post('/administrator', 'AdminController@sign_in');
+Route::get('/admin/login', 'NormalController@admin_sign_in_view')->name('admin');
+Route::post('/admin/login', 'NormalController@admin_sign_in');
 
-Route::get('/administrator/dashboard', 'AdminController@index')->name('admin-dashboard');
+Route::group(['guard' => ['admin']], function () {
+    Route::get('/admin', 'AdminController@index')->name('admin-dashboard');
 
-Route::get('/administrator/categories', 'AdminController@categories')->name('admin-category');
-Route::get('/administrator/categories/create', 'AdminController@create_category_view');
-Route::post('/administrator/categories/store', 'AdminController@category_store');
-Route::post('/administrator/categories/edit', 'AdminController@edit_category_view');
-Route::get('/administrator/categories/delete/{id}', 'AdminController@category_delete');
+	Route::get('/admin/categories', 'AdminController@categories')->name('admin-category');
+	Route::get('/admin/categories/create', 'AdminController@create_category_view');
+	Route::post('/admin/categories/store', 'AdminController@category_store');
+	Route::post('/admin/categories/edit', 'AdminController@edit_category_view');
+	Route::get('/admin/categories/delete/{id}', 'AdminController@category_delete');
 
-Route::get('/administrator/users/publishers', 'AdminController@publishers');
-Route::get('/administrator/users/publishers/approve/{id}', 'AdminController@approve_publisher');
-Route::get('/administrator/users/publishers/reject/{id}', 'AdminController@reject_publisher');
+	Route::get('/admin/users/publishers', 'AdminController@publishers');
+	Route::get('/admin/users/publishers/approve/{id}', 'AdminController@approve_publisher');
+	Route::get('/admin/users/publishers/reject/{id}', 'AdminController@reject_publisher');
 
-Route::get('/administrator/articles', 'AdminController@articles');
-Route::get('/administrator/editedarticles', 'AdminController@edited_articles');
-Route::get('/administrator/articles/view/{id}', 'AdminController@article_content');
-Route::get('/administrator/articles/view/edited/{id}', 'AdminController@edited_article_content');
-//Route::get('/administrator/articles/approve/{id}', 'AdminController@approve_article');
-Route::post('/administrator/articles/approve', 'AdminController@approve_article');
-Route::get('/administrator/articles/reject/{id}', 'AdminController@reject_article');
-Route::get('/administrator/articles/approve/edited/{id}', 'AdminController@approve_edited_article');
-Route::get('/administrator/articles/reject/edited/{id}', 'AdminController@reject_edited_article');
+	Route::get('/admin/articles', 'AdminController@articles');
+	Route::get('/admin/editedarticles', 'AdminController@edited_articles');
+	Route::get('/admin/articles/view/{id}', 'AdminController@article_content');
+	Route::get('/admin/articles/view/edited/{id}', 'AdminController@edited_article_content');
+	//Route::get('/administrator/articles/approve/{id}', 'AdminController@approve_article');
+	Route::post('/admin/articles/approve', 'AdminController@approve_article');
+	Route::get('/admin/articles/reject/{id}', 'AdminController@reject_article');
+	Route::get('/admin/articles/approve/edited/{id}', 'AdminController@approve_edited_article');
+	Route::get('/admin/articles/reject/edited/{id}', 'AdminController@reject_edited_article');
+
+	Route::get('/admin/logout', 'AdminController@admin_sign_out');
+});

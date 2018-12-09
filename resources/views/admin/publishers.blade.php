@@ -64,12 +64,12 @@
 	$(function() {
 		$('.btn-approve').on('click', function(e) {
 		   var id = $(this).parents('tr').attr('data-id');
-		   document.location.href = '/administrator/users/publishers/approve/' + id;
+		   document.location.href = '/admin/users/publishers/approve/' + id;
 		});
 
 		$('.btn-reject').on('click', function(e) {
 		   var id = $(this).parents('tr').attr('data-id');
-		   document.location.href = '/administrator/users/publishers/reject/' + id;
+		   document.location.href = '/admin/users/publishers/reject/' + id;
 		});
 
 	    @if(session('msg_status'))
